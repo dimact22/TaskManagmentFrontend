@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./AddTasksPage.css";
-import Header from "../Header/Header";
-import GreenCircle from "./png-transparent-circle-green-circle-color-grass-sphere-thumbnail.png";
+
 import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css"; 
 import "react-clock/dist/Clock.css";
 
-// Функція для форматування дати у формат "yyyy-MM-ddTHH:mm"
-const formatDateToLocalDatetime = (date) => {
-    const d = new Date(date);
-    return d.toISOString().slice(0, 16);
-};
 
+
+
+// eslint-disable-next-line react/prop-types
 const AddTasksPage = ({onClose}) => {
     const [taskType, setTaskType] = useState("general");
     const [importance, setImportance] = useState("0"); // Значення важливості
