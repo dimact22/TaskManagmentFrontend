@@ -85,12 +85,6 @@ const HomePage = () => {
     setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
   };
 
-  // Обработчик выхода
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-  };
-
   const renderContent = () => {
     switch (activeTab) {
       case "AddTasks":

@@ -3,14 +3,13 @@ import "./MyTasks.css";
 import Green from "./pngwing.com.png";
 import Red from "./pngwing.com (2).png";
 import Yellow from "./pngwing.com (1).png";
-import DatePicker from "react-datepicker";
 import door from "../../door.png"
 import more from "../../more.png"
 
 
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from 'date-fns';
 
+// eslint-disable-next-line react/prop-types
 const CommentModal = ({ isOpen, onSubmit, onCancel, needcom }) => {
   const [comment, setComment] = useState("");
 
@@ -63,6 +62,7 @@ const CommentModal = ({ isOpen, onSubmit, onCancel, needcom }) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const TaskDetailModal = ({ task, isOpen, onClose }) => {
   if (!isOpen) return null;
   const daysOfWeek = [
@@ -112,7 +112,8 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
   );
 };
 
-const TaskItem = ({ task, selectedDate, onTaskSelected, TaskSelected, complTasks  }) => {
+// eslint-disable-next-line react/prop-types
+const TaskItem = ({ task, onTaskSelected, TaskSelected  }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [allowToRun, setAllowToRun] = useState(true);
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
@@ -123,20 +124,6 @@ const TaskItem = ({ task, selectedDate, onTaskSelected, TaskSelected, complTasks
     setIsModalOpen((prev) => !prev); // Toggle modal
   };
   const getKyivTime = () => new Date().toLocaleString("uk-UA", { timeZone: "Europe/Kiev" });
-  const getKyivDate = () => {
-    const options = { 
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      timeZone: "Europe/Kiev"
-    };
-    return new Date().toLocaleDateString("uk-UA", options).split('.').reverse().join('-');
-  };
-  const normalizeDate = (date) => {
-    const d = new Date(date);
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  };
-
   useEffect(() => {
     const savedTaskState = JSON.parse(localStorage.getItem("taskState"));
     if (savedTaskState && savedTaskState[task._id]) {
@@ -436,9 +423,7 @@ const MyTasks = () => {
   const [complTasks, setComplTasks] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date()); // Изначально selectedDate - объект Date
   const [EndselectedDate, setEndSelectedDate] = useState(new Date());
-  const [token, setToken] = useState('');
-  const normalizeDate = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
+  const [setToken] = useState('');
   // Для фильтрации задач по дате
   const filterTasksByDate2 = (date) => {
     const dayOfWeek = date.getDay();
@@ -504,11 +489,6 @@ const filterTasksByDate = (startDate, endDate) => {
       window.location.href = "/";
       return;
     }
-    const day = String(selectedDate.getDate()).padStart(2, "0"); // День с ведущим нулем
-const month = String(selectedDate.getMonth() + 1).padStart(2, "0"); // Месяц (с поправкой, т.к. январь = 0)
-const year = selectedDate.getFullYear(); // Год
-
-const formattedDate = `${day}.${month}.${year}`;
     // Получаем задачи только если токен есть
     fetch(`http://localhost:8000/get_my_task/`, {
       method: "GET",

@@ -6,15 +6,8 @@
     ],
     "rules": {
       "prettier/prettier": "warn",
-      "react/prop-types": "off",
       "no-unused-vars": "warn",
-      "no-console": "warn",
-      "eqeqeq": "warn"
-    },
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
+      "react/prop-types": "off",
+      "eqeqeq": "error"
     }
   }
-  

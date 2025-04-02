@@ -3,7 +3,6 @@ import "./TasksPage.css";
 import Green from "./pngwing.com.png";
 import Red from "./pngwing.com (2).png";
 import Yellow from "./pngwing.com (1).png";
-import DatePicker from "react-datepicker";
 import CreateTask from "../AddTasksPage/AddTasksPage"
 import plus from "../../plus.png"
 import TimePicker from "react-time-picker";
@@ -17,6 +16,8 @@ import copyer from "../../copyer.png"
 
 
 import "react-datepicker/dist/react-datepicker.css";
+
+// eslint-disable-next-line react/prop-types
 const EditTaskModal = ({ task, isOpen, onClose, onTaskUpdated }) => {
   const [taskDetails, setTaskDetails] = useState({ ...task });
   const [groups, setGroups] = useState(task.group);
@@ -341,7 +342,9 @@ const daysOfWeek = [
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const CopyTaskModal = ({ task, isOpen, onClose, onTaskUpdated }) => {
+  // eslint-disable-next-line no-unused-vars
   const { _id,created_by,created_name,dateToComplete,...restTask } = task; // Исключаем _id из task
   const [taskDetails, setTaskDetails] = useState({
     ...restTask, // Используем оставшиеся поля
@@ -681,6 +684,7 @@ const daysOfWeek = [
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const TaskDetailModal = ({ task, isOpen, onClose }) => {
   if (!isOpen) return null;
   const daysOfWeek = [
@@ -734,68 +738,61 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
   );
 };
 
-const TaskItem = ({ task, onTaskUpdated, onTaskSelected, TaskSelected }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [procent, Setprocent] = useState('Не виявленно');
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [isCopyModalOpen, setIsCopyModalOpen] = useState(false);
-    const toggleModal = () => {
-      setIsModalOpen((prev) => !prev); // Toggle modal
-    };
-    const normalizeDate = (date) => {
-      return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    };
-    const dateObject = new Date(task.dateToComplete)
-    dateObject.setHours(0, 0, 0, 0);
-    console.log("=====", dateObject)
-    useEffect(() => {
-      fetch(`http://localhost:8000/get_infoprocent_about_task/${task.group}/${task._id}-${dateObject.toString()}`, {
-        method: "GET"
+function TaskItem({ task, onTaskUpdated, onTaskSelected, TaskSelected }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [procent, Setprocent] = useState('Не виявленно');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCopyModalOpen, setIsCopyModalOpen] = useState(false);
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev); // Toggle modal
+  };
+  
+  const dateObject = new Date(task.dateToComplete);
+  dateObject.setHours(0, 0, 0, 0);
+  console.log("=====", dateObject);
+  useEffect(() => {
+    fetch(`http://localhost:8000/get_infoprocent_about_task/${task.group}/${task._id}-${dateObject.toString()}`, {
+      method: "GET"
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        Setprocent(data);
       })
-        .then((response) => response.json())
-        .then((data) => {
-          Setprocent(data);
-        })
-        .catch((error) => console.error('Помилка при отриманні завдань:', error));
-    }, []);
-    const handleCloseModal = () => {
-      onTaskSelected(false); // Закрыть модальное окно для создания пользователя
-    };
-  
-    // Функция для удаления задачи
-    const handleDeleteTask = () => {
-        if (!window.confirm(`Ви впевнені, що хочете видалити цю задачу "${task.title}"?`)) {
-            return;
-          }
-      const token = localStorage.getItem("token");
-      fetch(`http://localhost:8000/delete_task/${task._id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+      .catch((error) => console.error('Помилка при отриманні завдань:', error));
+  }, []);
+  const handleCloseModal = () => {
+    onTaskSelected(false); // Закрыть модальное окно для создания пользователя
+  };
+
+  // Функция для удаления задачи
+  const handleDeleteTask = () => {
+    if (!window.confirm(`Ви впевнені, що хочете видалити цю задачу "${task.title}"?`)) {
+      return;
+    }
+    const token = localStorage.getItem("token");
+    fetch(`http://localhost:8000/delete_task/${task._id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Помилка при видаленні завдання.");
+        }
+        alert("Завдання успішно видалено");
+        window.location.reload(); // Обновляем страницу после удаления задачи
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Помилка при видаленні завдання.");
-          }
-          alert("Завдання успішно видалено");
-          window.location.reload(); // Обновляем страницу после удаления задачи
-        })
-        .catch((error) => {
-          alert("Помилка при видаленні завдання: " + error.message);
-        });
-    };
-  
-    // Функция для редактирования задачи
-    const handleEditTask = () => {
-      // Для редактирования, можно добавить логику, например, открытие модального окна для редактирования
-      alert("Редагування задачі ще не реалізовано.");
-    };
-  
-    return (
-      <>
-        <tr
+      .catch((error) => {
+        alert("Помилка при видаленні завдання: " + error.message);
+      });
+  };
+
+
+  return (
+    <>
+      <tr
         onClick={() => onTaskSelected(task)}
         className={TaskSelected?._id === task._id ? "selectedgroup" : ""}>
         <td>
@@ -803,49 +800,45 @@ const TaskItem = ({ task, onTaskUpdated, onTaskSelected, TaskSelected }) => {
             <img
               src={task.importance === 0 ? Green : task.importance === 1 ? Yellow : Red}
               alt="Importance"
-              style={{ width: "2em", verticalAlign: "middle", marginLeft: "0.2em" }}
-            />
+              style={{ width: "2em", verticalAlign: "middle", marginLeft: "0.2em" }} />
           </div>
         </td>
-          <td>{task.dateToComplete.toLocaleDateString()
-          } {task.end_time}</td>
-          <td>{task.group}</td>
-          <td style={{ maxWidth: '100%' }}>{task.title}</td>
-          <td>{procent} %</td>
-        </tr>
-  
-        {/* TaskDetailModal */}
-        {isModalOpen && <TaskDetailModal task={task} isOpen={isModalOpen} onClose={toggleModal} />}
-        {isEditModalOpen && (
+        <td>{task.dateToComplete.toLocaleDateString()} {task.end_time}</td>
+        <td>{task.group}</td>
+        <td style={{ maxWidth: '100%' }}>{task.title}</td>
+        <td>{procent} %</td>
+      </tr>
+
+      {/* TaskDetailModal */}
+      {isModalOpen && <TaskDetailModal task={task} isOpen={isModalOpen} onClose={toggleModal} />}
+      {isEditModalOpen && (
         <EditTaskModal
           task={task}
           isOpen={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
-          onTaskUpdated={onTaskUpdated}
-        />
+          onTaskUpdated={onTaskUpdated} />
       )}
       {isCopyModalOpen && (
         <CopyTaskModal
           task={task}
           isOpen={isCopyModalOpen}
           onClose={() => setIsCopyModalOpen(false)}
-          onTaskUpdated={onTaskUpdated}
-        />
+          onTaskUpdated={onTaskUpdated} />
       )}
       {TaskSelected == task && (
-        <div className="action-popup" style = {{zIndex: '1002'}}>
-          
-          <img title="Вийти" onClick={handleCloseModal} style = {{height: "4.2vw", width: '4.5vw', marginRight: '13%', cursor:'pointer',marginLeft: '3vw'}} src = {door}></img>
-          <img title="Деталі" onClick={toggleModal} style = {{height: "4vw", width: '4.5vw', cursor:'pointer', marginRight: '13%'}} src = {more}></img>
-          <img title="Видалити" onClick={handleDeleteTask} style = {{height: "4vw", width: '4.5vw', marginRight: '12%', cursor:'pointer'}} src = {deleter}></img>
-          <img title="Копіювати" onClick={() => setIsCopyModalOpen(true)} style = {{height: "3.5vw", width: '4.5vw', cursor:'pointer', marginRight: '13%'}} src = {copyer}></img>
-          <img title="Редагувати" onClick={() => setIsEditModalOpen(true)} style = {{height: "4.2vw", width: '4.5vw', cursor:'pointer'}} src = {changer}></img>
-        
+        <div className="action-popup" style={{ zIndex: '1002' }}>
+
+          <img title="Вийти" onClick={handleCloseModal} style={{ height: "4.2vw", width: '4.5vw', marginRight: '13%', cursor: 'pointer', marginLeft: '3vw' }} src={door}></img>
+          <img title="Деталі" onClick={toggleModal} style={{ height: "4vw", width: '4.5vw', cursor: 'pointer', marginRight: '13%' }} src={more}></img>
+          <img title="Видалити" onClick={handleDeleteTask} style={{ height: "4vw", width: '4.5vw', marginRight: '12%', cursor: 'pointer' }} src={deleter}></img>
+          <img title="Копіювати" onClick={() => setIsCopyModalOpen(true)} style={{ height: "3.5vw", width: '4.5vw', cursor: 'pointer', marginRight: '13%' }} src={copyer}></img>
+          <img title="Редагувати" onClick={() => setIsEditModalOpen(true)} style={{ height: "4.2vw", width: '4.5vw', cursor: 'pointer' }} src={changer}></img>
+
         </div>
       )}
-      </>
-    );
-  };
+    </>
+  );
+}
 
 const TasksPage = () => {
   const [tasks, setTasks] = useState([]);
@@ -853,7 +846,7 @@ const TasksPage = () => {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [EndselectedDate, setEndSelectedDate] = useState(new Date());
-  const [token, setToken] = useState('');
+  const [setToken] = useState('');
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
 
   const openCreateTaskModal = () => {
@@ -1032,6 +1025,7 @@ const filterTasksByDate = (startDate, endDate) => {
         </thead>
         <tbody>
           {filteredTasks.length > 0 ? (
+            // eslint-disable-next-line react/jsx-key
             filteredTasks.map((task) => <TaskItem task={task} onTaskUpdated={handleTaskUpdated} onTaskSelected={setSelectedTask} TaskSelected={selectedTask} />)
           ) : (
             <tr>

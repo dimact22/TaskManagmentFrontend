@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Header.css";
-import { FaBars, FaGlobe, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
-  const [loading, setLoading] = useState(true);
   const [isDropdownVisible, setDropdownVisible] = useState(false); // Управление видимостью выпадающего списка
   const [isProfileVisible, setProfileVisible] = useState(false);
   const [profinfo,setProfInfo] = useState([]);
@@ -33,9 +32,7 @@ const Header = () => {
         }
       } catch (error) {
         console.error("Error fetching info:", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
     
     fetchinfo();

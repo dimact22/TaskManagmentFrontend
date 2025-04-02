@@ -129,6 +129,7 @@ const AdminPage = () => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const CreateUserForm = ({ fetchUsers,fetchUsersToAdd,fetchUsersForGroup, token, onClose }) => {
   console.log("CreateUserForm получил props:", { fetchUsers, fetchUsersToAdd, token });
   const [phone, setPhone] = useState("+380");
@@ -199,7 +200,7 @@ const CreateUserForm = ({ fetchUsers,fetchUsersToAdd,fetchUsersForGroup, token, 
       <button type="button" style = {{marginTop: '-1vw', width: '5%', marginLeft: '95%'}} onClick={onClose}>X</button>
         <form className="registration-form" onSubmit={handleCreateUser}>
           <div className="form-group">
-            <label htmlFor="name">Ім'я та Прізвище:</label>
+            <label htmlFor="name">Ім&apos;я та Прізвище:</label>
             <input
               type="text"
               id="name"
@@ -257,6 +258,7 @@ const CreateUserForm = ({ fetchUsers,fetchUsersToAdd,fetchUsersForGroup, token, 
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const ViewGroups = ({ token, usersToAdd, usersForGroup }) => {
   const [groups, setGroups] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -266,12 +268,6 @@ const ViewGroups = ({ token, usersToAdd, usersForGroup }) => {
   const [groupStatus, setGroupStatus] = useState(1);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [isCreategroupModalOpen, setIsCreategroupModalOpen] = useState(false);
-  const customStyles = {
-    control: (base) => ({
-      ...base,
-      marginTop: "0.5em",
-    }),
-  };
 
   const handleCreateGroupButtonClick = () => {
     setIsCreategroupModalOpen(true); // Открыть модальное окно для создания нового пользователя
@@ -281,11 +277,13 @@ const ViewGroups = ({ token, usersToAdd, usersForGroup }) => {
     setIsCreategroupModalOpen(false); // Закрыть модальное окно для создания пользователя
   };
 
+  // eslint-disable-next-line react/prop-types
   const userOptions = usersForGroup.map((user) => ({
     value: user.phone,
     label: `${user.phone}, ${user.name}`,
   }));
 
+  // eslint-disable-next-line react/prop-types
   const userOptions2 = usersToAdd.map((user) => ({
     value: user.phone,
     label: `${user.phone}, ${user.name}`,
@@ -530,6 +528,7 @@ const ViewGroups = ({ token, usersToAdd, usersForGroup }) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGroup }) => {
   const [editingUser, setEditingUser] = useState(null); // Для редактирования
   const [selectedUser, setSelectedUser] = useState(null); // Выбранный пользователь для popup
@@ -647,7 +646,7 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
       <table>
         <thead>
           <tr>
-            <th>Ім'я та Прізвище</th>
+            <th>Ім&apos;я та Прізвище</th>
             <th>Телефон</th>
             <th>Статус</th>
           </tr>
@@ -687,7 +686,7 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
           <div className="modal-content">
             <h2>Редагування користувача</h2>
             <div className="form-group">
-              <label htmlFor="name">Ім'я та Прізвище:</label>
+              <label htmlFor="name">Ім&apos;я та Прізвище:</label>
               <input
                 type="text"
                 id="name"
@@ -745,6 +744,7 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const CreateGroupForm = ({ usersToAdd, usersForGroup,fetchGroups, token, onClose }) => {
   const userOptions = usersForGroup.map((user) => ({
     value: user.phone,
@@ -774,10 +774,6 @@ const CreateGroupForm = ({ usersToAdd, usersForGroup,fetchGroups, token, onClose
 
   const handleUserSelect = (selectedOptions) => {
     setSelectedUsers(selectedOptions.map((option) => option.value));
-  };
-
-  const handleUserRemove = (userId) => {
-    setSelectedUsers(selectedUsers.filter((id) => id !== userId));
   };
 
   const handleGroupNameChange = (e) => {

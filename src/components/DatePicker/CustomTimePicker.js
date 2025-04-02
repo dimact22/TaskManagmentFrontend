@@ -21,6 +21,7 @@ class CustomTimePicker extends Component {
 
     this.state = {
       dialogIsOpen: false,
+      // eslint-disable-next-line react/prop-types
       selectedValue: this.props.defaultValue
     };
 
@@ -43,6 +44,7 @@ class CustomTimePicker extends Component {
       dialogIsOpen: false
     });
 
+    // eslint-disable-next-line react/prop-types
     this.props.value(this.adjustTimeInBounds(this.state.selectedValue));
   }
 
@@ -50,10 +52,14 @@ class CustomTimePicker extends Component {
     console.log("adjustTimeInBounds", newValue);
     if (newValue) {
       const momentValue = moment(newValue);
+      // eslint-disable-next-line react/prop-types
       if (momentValue.isBefore(this.props.minDateTime)) {
+        // eslint-disable-next-line react/prop-types
         return this.props.minDateTime;
       } else {
+        // eslint-disable-next-line react/prop-types
         if (momentValue.isAfter(this.props.maxDateTime)) {
+          // eslint-disable-next-line react/prop-types
           return this.props.maxDateTime;
         } else {
           // New value is within bounds
