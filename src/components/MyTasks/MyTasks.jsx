@@ -5,6 +5,7 @@ import Red from "./pngwing.com (2).png";
 import Yellow from "./pngwing.com (1).png";
 import door from "../../door.png"
 import more from "../../more.png"
+import PropTypes from 'prop-types';
 
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -64,6 +65,29 @@ const CommentModal = ({ isOpen, onSubmit, onCancel, needcom }) => {
 
 // eslint-disable-next-line react/prop-types
 const TaskDetailModal = ({ task, isOpen, onClose }) => {
+  TaskDetailModal.propTypes = {
+    task: PropTypes.shape({
+      description: PropTypes.string,
+      repeat_days: PropTypes.arrayOf(PropTypes.string),
+      start_date: PropTypes.string,
+      start_time: PropTypes.string,
+      group: PropTypes.string,
+      needphoto: PropTypes.bool,
+      needcomment: PropTypes.bool,
+      _id: PropTypes.string.isRequired,
+      dateToComplete: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+      end_time: PropTypes.string,
+      created_name: PropTypes.string,
+      title: PropTypes.string,
+      importance: PropTypes.string,
+      isUrgent: PropTypes.bool,
+      key: PropTypes.string,
+    }).isRequired,
+    selectedDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
+    onTaskSelected: PropTypes.func.isRequired,
+    TaskSelected: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    complTasks: PropTypes.arrayOf(PropTypes.string).isRequired,
+  };
   if (!isOpen) return null;
   const daysOfWeek = [
     { value: "Понеділок", label: "Monday" },
@@ -114,8 +138,31 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
 
 // eslint-disable-next-line react/prop-types
 const TaskItem = ({ task, onTaskSelected, TaskSelected  }) => {
+  TaskItem.propTypes = {
+    task: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      repeat_days: PropTypes.arrayOf(PropTypes.string),
+      start_date: PropTypes.string,
+      start_time: PropTypes.string,
+      group: PropTypes.string,
+      needphoto: PropTypes.number,
+      needcomment: PropTypes.number,
+      dateToComplete: PropTypes.instanceOf(Date),
+      end_time: PropTypes.string,
+      created_name: PropTypes.string,
+      title: PropTypes.string,
+      key: PropTypes.string,
+      isUrgent: PropTypes.bool,
+      importance: PropTypes.number,
+    }).isRequired,
+    onTaskSelected: PropTypes.func.isRequired,
+    TaskSelected: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [allowToRun, setAllowToRun] = useState(true);
+  const [allowToRun] = useState(true);
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [isCommentModalOpen2, setIsCommentModalOpen2] = useState(false);
   const [buttonState, setButtonState] = useState("Почати завдання");
@@ -417,6 +464,7 @@ const TaskItem = ({ task, onTaskSelected, TaskSelected  }) => {
   );}
 
 const MyTasks = () => {
+  MyTasks
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(false);
   const [filteredTasks, setFilteredTasks] = useState([]);

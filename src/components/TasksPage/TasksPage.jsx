@@ -12,6 +12,7 @@ import deleter from "../../delete.png"
 import changer from "../../change.png"
 import door from "../../door.png"
 import more from "../../more.png"
+import PropTypes from 'prop-types';
 import copyer from "../../copyer.png"
 
 
@@ -19,6 +20,34 @@ import "react-datepicker/dist/react-datepicker.css";
 
 // eslint-disable-next-line react/prop-types
 const EditTaskModal = ({ task, isOpen, onClose, onTaskUpdated }) => {
+  EditTaskModal.propTypes = {
+    task: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      descriptionLength: PropTypes.number, // Если ты используешь task.description.length
+      repeat_days: PropTypes.arrayOf(PropTypes.string),
+      start_date: PropTypes.string,
+      start_time: PropTypes.string,
+      end_date: PropTypes.string,
+      end_time: PropTypes.string,
+      group: PropTypes.string,
+      created_by: PropTypes.string,
+      created_name: PropTypes.string,
+      needphoto: PropTypes.bool,
+      needcomment: PropTypes.bool,
+      dateToComplete: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+      importance: PropTypes.string,
+      key: PropTypes.string,
+      isUrgent: PropTypes.bool,
+    }).isRequired,
+    onTaskUpdated: PropTypes.func.isRequired,
+    onTaskSelected: PropTypes.func.isRequired,
+    TaskSelected: PropTypes.shape({
+      _id: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  };
   const [taskDetails, setTaskDetails] = useState({ ...task });
   const [groups, setGroups] = useState(task.group);
   const [isLoadingGroups, setIsLoadingGroups] = useState(true);
@@ -344,6 +373,34 @@ const daysOfWeek = [
 
 // eslint-disable-next-line react/prop-types
 const CopyTaskModal = ({ task, isOpen, onClose, onTaskUpdated }) => {
+  CopyTaskModal.propTypes = {
+    task: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      descriptionLength: PropTypes.number, // Если ты используешь task.description.length
+      repeat_days: PropTypes.arrayOf(PropTypes.string),
+      start_date: PropTypes.string,
+      start_time: PropTypes.string,
+      end_date: PropTypes.string,
+      end_time: PropTypes.string,
+      group: PropTypes.string,
+      created_by: PropTypes.string,
+      created_name: PropTypes.string,
+      needphoto: PropTypes.bool,
+      needcomment: PropTypes.bool,
+      dateToComplete: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+      importance: PropTypes.string,
+      key: PropTypes.string,
+      isUrgent: PropTypes.bool,
+    }).isRequired,
+    onTaskUpdated: PropTypes.func.isRequired,
+    onTaskSelected: PropTypes.func.isRequired,
+    TaskSelected: PropTypes.shape({
+      _id: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  };
   // eslint-disable-next-line no-unused-vars
   const { _id,created_by,created_name,dateToComplete,...restTask } = task; // Исключаем _id из task
   const [taskDetails, setTaskDetails] = useState({
@@ -686,6 +743,34 @@ const daysOfWeek = [
 
 // eslint-disable-next-line react/prop-types
 const TaskDetailModal = ({ task, isOpen, onClose }) => {
+  TaskDetailModal.propTypes = {
+    task: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      descriptionLength: PropTypes.number, // Если ты используешь task.description.length
+      repeat_days: PropTypes.arrayOf(PropTypes.string),
+      start_date: PropTypes.string,
+      start_time: PropTypes.string,
+      end_date: PropTypes.string,
+      end_time: PropTypes.string,
+      group: PropTypes.string,
+      created_by: PropTypes.string,
+      created_name: PropTypes.string,
+      needphoto: PropTypes.bool,
+      needcomment: PropTypes.bool,
+      dateToComplete: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+      importance: PropTypes.string,
+      key: PropTypes.string,
+      isUrgent: PropTypes.bool,
+    }).isRequired,
+    onTaskUpdated: PropTypes.func.isRequired,
+    onTaskSelected: PropTypes.func.isRequired,
+    TaskSelected: PropTypes.shape({
+      _id: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  };
   if (!isOpen) return null;
   const daysOfWeek = [
     { value: "Понеділок", label: "Monday" },
@@ -738,7 +823,36 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 function TaskItem({ task, onTaskUpdated, onTaskSelected, TaskSelected }) {
+  TaskItem.propTypes = {
+    task: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      descriptionLength: PropTypes.number, // Если ты используешь task.description.length
+      repeat_days: PropTypes.arrayOf(PropTypes.string),
+      start_date: PropTypes.string,
+      start_time: PropTypes.string,
+      end_date: PropTypes.string,
+      end_time: PropTypes.string,
+      group: PropTypes.string,
+      created_by: PropTypes.string,
+      created_name: PropTypes.string,
+      needphoto: PropTypes.bool,
+      needcomment: PropTypes.bool,
+      dateToComplete: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+      importance: PropTypes.string,
+      key: PropTypes.string,
+      isUrgent: PropTypes.bool,
+    }).isRequired,
+    onTaskUpdated: PropTypes.func.isRequired,
+    onTaskSelected: PropTypes.func.isRequired,
+    TaskSelected: PropTypes.shape({
+      _id: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [procent, Setprocent] = useState('Не виявленно');
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -841,6 +955,34 @@ function TaskItem({ task, onTaskUpdated, onTaskSelected, TaskSelected }) {
 }
 
 const TasksPage = () => {
+  TasksPage.propTypes = {
+    task: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      descriptionLength: PropTypes.number, // Если ты используешь task.description.length
+      repeat_days: PropTypes.arrayOf(PropTypes.string),
+      start_date: PropTypes.string,
+      start_time: PropTypes.string,
+      end_date: PropTypes.string,
+      end_time: PropTypes.string,
+      group: PropTypes.string,
+      created_by: PropTypes.string,
+      created_name: PropTypes.string,
+      needphoto: PropTypes.bool,
+      needcomment: PropTypes.bool,
+      dateToComplete: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+      importance: PropTypes.string,
+      key: PropTypes.string,
+      isUrgent: PropTypes.bool,
+    }).isRequired,
+    onTaskUpdated: PropTypes.func.isRequired,
+    onTaskSelected: PropTypes.func.isRequired,
+    TaskSelected: PropTypes.shape({
+      _id: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  };
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(false);
   const [filteredTasks, setFilteredTasks] = useState([]);

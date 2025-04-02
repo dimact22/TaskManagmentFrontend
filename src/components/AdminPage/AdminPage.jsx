@@ -6,6 +6,7 @@ import plus from "../../plus.png"
 import deleter from "../../delete.png"
 import changer from "../../change.png"
 import door from "../../door.png"
+import PropTypes from 'prop-types';
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState("viewUsers"); // Выбранная вкладка
@@ -530,6 +531,26 @@ const ViewGroups = ({ token, usersToAdd, usersForGroup }) => {
 
 // eslint-disable-next-line react/prop-types
 const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGroup }) => {
+  UserTable.propTypes = {
+    users: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    usersForGroup: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    usersToAdd: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  };
   const [editingUser, setEditingUser] = useState(null); // Для редактирования
   const [selectedUser, setSelectedUser] = useState(null); // Выбранный пользователь для popup
   const [isModalOpen, setIsModalOpen] = useState(false); // Для модального окна
@@ -746,6 +767,26 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
 
 // eslint-disable-next-line react/prop-types
 const CreateGroupForm = ({ usersToAdd, usersForGroup,fetchGroups, token, onClose }) => {
+  CreateGroupForm.propTypes = {
+    users: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    usersForGroup: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    usersToAdd: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  };
   const userOptions = usersForGroup.map((user) => ({
     value: user.phone,
     label: `${user.phone}, ${user.name}`,
