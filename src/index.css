@@ -1,11 +1,11 @@
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   height: 100%;
   width: 100%;
   font-family: "Poppins", sans-serif;
@@ -13,7 +13,8 @@ body, html {
 
 /* Стиль хедера */
 .header {
-  position: fixed;  /* Фиксируем хедер */
+  position: fixed;
+  /* Фиксируем хедер */
   top: 0;
   left: 0;
   width: 100%;
@@ -21,5 +22,6 @@ body, html {
   color: white;
   padding: 0;
   text-align: center;
-  z-index: 1000; /* Убедимся, что хедер всегда сверху */
+  z-index: 1000;
+  /* Убедимся, что хедер всегда сверху */
 }

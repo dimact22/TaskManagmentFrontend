@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./AddTasksPage.css";
 
 import TimePicker from "react-time-picker";
-import "react-time-picker/dist/TimePicker.css"; 
+import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
 
 
 
 
 // eslint-disable-next-line react/prop-types
-const AddTasksPage = ({onClose}) => {
+const AddTasksPage = ({ onClose }) => {
     const [taskType, setTaskType] = useState("general");
     const [importance, setImportance] = useState("0"); // Значення важливості
     const [groups, setGroups] = useState([]);
@@ -35,8 +35,9 @@ const AddTasksPage = ({onClose}) => {
     ];
 
     const importanceOptions = [
-        { value: "0", 
-          label: "Не дуже важливо"
+        {
+            value: "0",
+            label: "Не дуже важливо"
         },
         { value: "1", label: "Важливо" },
         { value: "2", label: "Дуже важливо" },
@@ -103,12 +104,13 @@ const AddTasksPage = ({onClose}) => {
                 ...prevDetails,
                 needphoto: checked,  // установим булевое значение
             }));
-        } else if(name === 'needcomment') {
+        } else if (name === 'needcomment') {
             setTaskDetails((prevDetails) => ({
                 ...prevDetails,
                 needcomment: checked,  // установим булевое значение
-            }));}
-            else {
+            }));
+        }
+        else {
             setTaskDetails((prevDetails) => ({
                 ...prevDetails,
                 [name]: value,
@@ -117,16 +119,16 @@ const AddTasksPage = ({onClose}) => {
     };
     const handleTimeStartChange = (newTime) => {
         setTaskDetails((prev) => ({
-          ...prev,
-          startTime: newTime,
+            ...prev,
+            startTime: newTime,
         }));
-      };
-      const handleTimeFinishChange = (newTime) => {
+    };
+    const handleTimeFinishChange = (newTime) => {
         setTaskDetails((prev) => ({
-          ...prev,
-          endTime: newTime,
+            ...prev,
+            endTime: newTime,
         }));
-      };
+    };
 
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
@@ -140,15 +142,15 @@ const AddTasksPage = ({onClose}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Отмена стандартного поведения формы
-        if(taskDetails.taskType === 'weekly' && taskDetails.repeatDays.length === 0){
+        if (taskDetails.taskType === 'weekly' && taskDetails.repeatDays.length === 0) {
             alert("Якщо ви обрали це завдання ви повинні обрати хоча б один день")
             return;
         }
-        if(new Date(taskDetails.startDate) > new Date(taskDetails.endDate)){
+        if (new Date(taskDetails.startDate) > new Date(taskDetails.endDate)) {
             alert("Дата початку не може бути більшою за дату закінчення")
             return;
         }
-        if(taskDetails.startTime > taskDetails.endTime){
+        if (taskDetails.startTime > taskDetails.endTime) {
             alert("Час початку не може бути більшою за час закінчення")
             return;
         }
@@ -198,217 +200,217 @@ const AddTasksPage = ({onClose}) => {
     };
 
     return (
-            <div className="modal-overlay4">
+        <div className="modal-overlay4">
             <div className="modal-content4">
-            <div >
-                <div className="task-form_addTask">
-                <button type="button" style = {{marginTop: '1vw', width: '5%', marginLeft: '90%'}} onClick={onClose} >X</button>
-                    <h3 style={{marginTop: '1vw'}}>Додати завдання</h3>
-                    <div className="form-row">
-                    <div
-  className="form-group2_addTask"
-  style={{
-    display: "flex", // Включаем флексбокс
-    alignItems: "center", // Центрируем элементы по вертикали
-    gap: "0px",
-    marginLeft:'9vw',
-    marginRight: '17.5vw' // Добавляем расстояние между label и select
-  }}
->
-  <label style={{ marginRight: "10px" }}>Тип</label>
-  <select
-    value={taskType}
-    onChange={handleTaskTypeChange}
-    className="task-type-select_addTask"
-  >
-    {taskTypeOptions.map((option) => (
-      <option key={option.value} value={option.value}>
-        {option.label}
-      </option>
-    ))}
-  </select>
-</div>
-
-                    <div className="form-group2_addTask" style={{
-    display: "flex", // Включаем флексбокс
-    alignItems: "center", // Центрируем элементы по вертикали
-    gap: "0px"
-  }}>
-                        <label>Приоритет</label>
-                        <select
-                            value={importance}
-                            onChange={handleImportanceChange}
-                            className="task-type-select_addTask"
-                        >
-                            {importanceOptions.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div></div>
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group_addTask">
-                            <label>Назва</label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={taskDetails.title}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group_addTask">
-                            <label>Оберіть групу</label>
-                            {isLoadingGroups ? (
-                                <p>Завантаження груп...</p>
-                            ) : groups.length > 0 ? (
+                <div >
+                    <div className="task-form_addTask">
+                        <button type="button" style={{ marginTop: '1vw', width: '5%', marginLeft: '90%' }} onClick={onClose} >X</button>
+                        <h3 style={{ marginTop: '1vw' }}>Додати завдання</h3>
+                        <div className="form-row">
+                            <div
+                                className="form-group2_addTask"
+                                style={{
+                                    display: "flex", // Включаем флексбокс
+                                    alignItems: "center", // Центрируем элементы по вертикали
+                                    gap: "0px",
+                                    marginLeft: '9vw',
+                                    marginRight: '17.5vw' // Добавляем расстояние между label и select
+                                }}
+                            >
+                                <label style={{ marginRight: "10px" }}>Тип</label>
                                 <select
-                                    name="group"
-                                    value={taskDetails.group}
-                                    onChange={handleInputChange}
-                                    required
+                                    value={taskType}
+                                    onChange={handleTaskTypeChange}
+                                    className="task-type-select_addTask"
                                 >
-                                    <option value="" disabled>
-                                        Оберіть групу
-                                    </option>
-                                    {groups.map((group, index) => (
-                                        <option key={index} value={group}>
-                                            {group}
+                                    {taskTypeOptions.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
                                         </option>
                                     ))}
                                 </select>
-                            ) : (
-                                <p>У вас немає груп для яких ви можете створити завдання</p>
-                            )}
-                        </div>
-                        {taskType === "weekly" && (
-                            <>
-                                <div className="form-group_addTask">
-                                    <label>Оберіть дні тижня</label>
-                                    <div className="form-row">
-                                        {daysOfWeek.map((day) => (
-                                            <label key={day.value} className="checkbox-label_addTask">
-                                                <input
-                                                    type="checkbox"
-                                                    value={day.value}
-                                                    checked={taskDetails.repeatDays.includes(day.value)}
-                                                    onChange={handleCheckboxChange}
-                                                />
-                                                <span>{day.label}</span>
-                                            </label>
+                            </div>
+
+                            <div className="form-group2_addTask" style={{
+                                display: "flex", // Включаем флексбокс
+                                alignItems: "center", // Центрируем элементы по вертикали
+                                gap: "0px"
+                            }}>
+                                <label>Приоритет</label>
+                                <select
+                                    value={importance}
+                                    onChange={handleImportanceChange}
+                                    className="task-type-select_addTask"
+                                >
+                                    {importanceOptions.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div></div>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group_addTask">
+                                <label>Назва</label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={taskDetails.title}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group_addTask">
+                                <label>Оберіть групу</label>
+                                {isLoadingGroups ? (
+                                    <p>Завантаження груп...</p>
+                                ) : groups.length > 0 ? (
+                                    <select
+                                        name="group"
+                                        value={taskDetails.group}
+                                        onChange={handleInputChange}
+                                        required
+                                    >
+                                        <option value="" disabled>
+                                            Оберіть групу
+                                        </option>
+                                        {groups.map((group, index) => (
+                                            <option key={index} value={group}>
+                                                {group}
+                                            </option>
                                         ))}
+                                    </select>
+                                ) : (
+                                    <p>У вас немає груп для яких ви можете створити завдання</p>
+                                )}
+                            </div>
+                            {taskType === "weekly" && (
+                                <>
+                                    <div className="form-group_addTask">
+                                        <label>Оберіть дні тижня</label>
+                                        <div className="form-row">
+                                            {daysOfWeek.map((day) => (
+                                                <label key={day.value} className="checkbox-label_addTask">
+                                                    <input
+                                                        type="checkbox"
+                                                        value={day.value}
+                                                        checked={taskDetails.repeatDays.includes(day.value)}
+                                                        onChange={handleCheckboxChange}
+                                                    />
+                                                    <span>{day.label}</span>
+                                                </label>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            </>
-                        )}
-                        <div className="form-row">
-                            <div className="form-group_addTask">
-                                <label>Діє з</label>
-                                <input
-                                    type="date"
-                                    name="startDate"
-                                    value={taskDetails.startDate}
-                                    onChange={handleInputChange}
-                                    min={new Date().toISOString().split("T")[0]}
-                                    required
-                                    style={{ width: "25em" }}
-                                />
-                            </div>
-                            <div className="form-group_addTask">
-                                <label>Діє по</label>
-                                <input
-                                    type="date"
-                                    name="endDate"
-                                    value={taskDetails.endDate}
-                                    onChange={handleInputChange}
-                                    min={new Date().toISOString().split("T")[0]}
-                                    required
-                                    style={{ width: "25em" }}
-                                />
-                            </div>
-                        </div>
-                        
-                                <div className="form-row">
-            <div style={{marginTop: "1em"}} className="form-group3time_addTask">
-            <label>Час початку</label>
-            <TimePicker
-        id="startTime"
-        name="startTime"
-        defaultValue="00:00"
-        value={taskDetails.startTime}
-        onChange={handleTimeStartChange}
-        style={{ width: "40em" }}
-        format="HH:mm" // Формат времени (24-часовой)
-        required
-        className="timecustomise"
-      />
-          </div>
-        <div style={{marginTop: "1em"}} className="form-group3time_addTask">
-            <label>Час закінчення</label>
-            <TimePicker
-        id="endTime"
-        name="endTime"
-        value={taskDetails.endTime}
-        onChange={handleTimeFinishChange}
-        style={{width: "40em"}}
-        format="HH:mm" // Формат времени (24-часовой)
-        required
-        className="timecustomise"
-      />
-          </div>
+                                </>
+                            )}
+                            <div className="form-row">
+                                <div className="form-group_addTask">
+                                    <label>Діє з</label>
+                                    <input
+                                        type="date"
+                                        name="startDate"
+                                        value={taskDetails.startDate}
+                                        onChange={handleInputChange}
+                                        min={new Date().toISOString().split("T")[0]}
+                                        required
+                                        style={{ width: "25em" }}
+                                    />
                                 </div>
                                 <div className="form-group_addTask">
-                            <label>Опис</label>
-                            <textarea
-                                name="description"
-                                value={taskDetails.description}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="form-row">
-                        <div className = "checkboxaddtask" style={{ marginRight: "25%",marginLeft:'15%', position: "relative" }}>
-                            <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно фото: </label>
-                            <input
-        type="checkbox"
-        name="needphoto"
-        id="needphoto"
-        checked={taskDetails.needphoto}
-        className="checkbox-label_addTask2"
-        onChange={handleInputChange}
-        style={{
-            position: "relative", // Относительное позиционирование
-            top: "4px", // Двигает чекбокс вниз
-            left: "0", // Можно регулировать положение по горизонтали, если потребуется
-          }}
-        
-      />
-                           
-                        </div>
-                        <div className = "checkboxaddtask" style ={{position: "relative" }}>
-                            <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно коментар: </label>
-                            <input
-        type="checkbox"
-        name="needcomment"
-        id="needcomment"
-        className="checkbox-label_addTask2"
-        checked={taskDetails.needcomment}
-        onChange={handleInputChange}
-        style={{
-            position: "relative", // Относительное позиционирование
-            top: "4px", // Двигает чекбокс вниз
-            left: "0", // Можно регулировать положение по горизонтали, если потребуется
-          }}
-      />
-                           
-                        </div></div>
-                        <button type="submit" className="submit-button_addTask">
-                            Зберегти
-                        </button>
-                    </form>
+                                    <label>Діє по</label>
+                                    <input
+                                        type="date"
+                                        name="endDate"
+                                        value={taskDetails.endDate}
+                                        onChange={handleInputChange}
+                                        min={new Date().toISOString().split("T")[0]}
+                                        required
+                                        style={{ width: "25em" }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="form-row">
+                                <div style={{ marginTop: "1em" }} className="form-group3time_addTask">
+                                    <label>Час початку</label>
+                                    <TimePicker
+                                        id="startTime"
+                                        name="startTime"
+                                        defaultValue="00:00"
+                                        value={taskDetails.startTime}
+                                        onChange={handleTimeStartChange}
+                                        style={{ width: "40em" }}
+                                        format="HH:mm" // Формат времени (24-часовой)
+                                        required
+                                        className="timecustomise"
+                                    />
+                                </div>
+                                <div style={{ marginTop: "1em" }} className="form-group3time_addTask">
+                                    <label>Час закінчення</label>
+                                    <TimePicker
+                                        id="endTime"
+                                        name="endTime"
+                                        value={taskDetails.endTime}
+                                        onChange={handleTimeFinishChange}
+                                        style={{ width: "40em" }}
+                                        format="HH:mm" // Формат времени (24-часовой)
+                                        required
+                                        className="timecustomise"
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-group_addTask">
+                                <label>Опис</label>
+                                <textarea
+                                    name="description"
+                                    value={taskDetails.description}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className="form-row">
+                                <div className="checkboxaddtask" style={{ marginRight: "25%", marginLeft: '15%', position: "relative" }}>
+                                    <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно фото: </label>
+                                    <input
+                                        type="checkbox"
+                                        name="needphoto"
+                                        id="needphoto"
+                                        checked={taskDetails.needphoto}
+                                        className="checkbox-label_addTask2"
+                                        onChange={handleInputChange}
+                                        style={{
+                                            position: "relative", // Относительное позиционирование
+                                            top: "4px", // Двигает чекбокс вниз
+                                            left: "0", // Можно регулировать положение по горизонтали, если потребуется
+                                        }}
+
+                                    />
+
+                                </div>
+                                <div className="checkboxaddtask" style={{ position: "relative" }}>
+                                    <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно коментар: </label>
+                                    <input
+                                        type="checkbox"
+                                        name="needcomment"
+                                        id="needcomment"
+                                        className="checkbox-label_addTask2"
+                                        checked={taskDetails.needcomment}
+                                        onChange={handleInputChange}
+                                        style={{
+                                            position: "relative", // Относительное позиционирование
+                                            top: "4px", // Двигает чекбокс вниз
+                                            left: "0", // Можно регулировать положение по горизонтали, если потребуется
+                                        }}
+                                    />
+
+                                </div></div>
+                            <button type="submit" className="submit-button_addTask">
+                                Зберегти
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div></div>
+            </div></div>
     );
 };
 

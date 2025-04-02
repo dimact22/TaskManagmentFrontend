@@ -1,22 +1,30 @@
 /* Стиль для хедера */
 .header {
   display: flex;
-  justify-content: space-between; /* Разделяем кнопки и иконку */
-  align-items: center; /* Центрируем по вертикали */
-  height: 10ex; /* Высота хедера */
-  background-color: #5267e4; /* Темный фон хедера */
+  justify-content: space-between;
+  /* Разделяем кнопки и иконку */
+  align-items: center;
+  /* Центрируем по вертикали */
+  height: 10ex;
+  /* Высота хедера */
+  background-color: #5267e4;
+  /* Темный фон хедера */
   margin-bottom: 10ex;
-  padding: 0 20px; /* Отступы слева и справа */
+  padding: 0 20px;
+  /* Отступы слева и справа */
 }
 
 /* Центрирование кнопок */
 .header-buttons {
   display: flex;
-  justify-content: center; /* Центрируем кнопки */
+  justify-content: center;
+  /* Центрируем кнопки */
   align-items: center;
-  gap: 15px; /* Расстояние между кнопками */
-  flex-grow: 1; /* Заставляем блок с кнопками занимать все пространство */
-  
+  gap: 15px;
+  /* Расстояние между кнопками */
+  flex-grow: 1;
+  /* Заставляем блок с кнопками занимать все пространство */
+
 }
 
 /* Кнопки */
@@ -31,7 +39,7 @@
   text-decoration: none;
 }
 
-.header-buttonsp{
+.header-buttonsp {
   font-size: 30px;
   color: #e9f3ff;
   font-family: 'Comic Sans MS', 'Comic Sans', cursive;
@@ -48,12 +56,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* Для выпадающего меню */
+  position: relative;
+  /* Для выпадающего меню */
 }
 
 /* Иконка пользователя */
 .styles-icon {
-  font-size: 2em; /* Увеличивает размер иконки */
+  font-size: 2em;
+  /* Увеличивает размер иконки */
   color: white;
   cursor: pointer;
   margin-top: 0.25em;
@@ -62,8 +72,10 @@
 /* Выпадающее меню */
 .dropdown-menu {
   position: absolute;
-  top: 4.25em; /* Смещение вниз от иконки */
-  right: 0.25em; /* Выравнивание по правому краю */
+  top: 4.25em;
+  /* Смещение вниз от иконки */
+  right: 0.25em;
+  /* Выравнивание по правому краю */
   background-color: #ffffff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -90,26 +102,33 @@
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .header {
-    height: 50px; /* Уменьшаем высоту хедера на мобильных устройствах */
+    height: 50px;
+    /* Уменьшаем высоту хедера на мобильных устройствах */
   }
 
   .header-button {
-    font-size: 14px; /* Уменьшаем размер шрифта кнопок на мобильных */
-    padding: 8px 16px; /* Уменьшаем отступы кнопок */
+    font-size: 14px;
+    /* Уменьшаем размер шрифта кнопок на мобильных */
+    padding: 8px 16px;
+    /* Уменьшаем отступы кнопок */
   }
 }
 
 @media (max-width: 480px) {
   .header {
-    height: 45px; /* Еще больше уменьшаем высоту хедера на очень маленьких экранах */
+    height: 45px;
+    /* Еще больше уменьшаем высоту хедера на очень маленьких экранах */
   }
 
   .header-button {
-    font-size: 12px; /* Меньше размер шрифта для маленьких экранов */
-    padding: 6px 12px; /* Меньше отступы */
+    font-size: 12px;
+    /* Меньше размер шрифта для маленьких экранов */
+    padding: 6px 12px;
+    /* Меньше отступы */
   }
 
   .styles-icon {
-    font-size: 30px; /* Уменьшаем размер иконки для маленьких экранов */
+    font-size: 30px;
+    /* Уменьшаем размер иконки для маленьких экранов */
   }
 }

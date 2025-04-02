@@ -35,8 +35,8 @@ const HomePage = () => {
         );
         if (response.ok) {
           const status = await response.json();
-          
-          if(status === 'admin'){
+
+          if (status === 'admin') {
             navigate('/admin');
           }
           setStatus(status);
@@ -52,12 +52,12 @@ const HomePage = () => {
   }, []);
   useEffect(() => {
     console.log(status)
-    if(status){
-      if(status === 'add'){
+    if (status) {
+      if (status === 'add') {
         setActiveTab('MyCreatedTasks')
       }
     }
-    
+
   }, [status]);
 
   // Проверка валидности телефона
@@ -92,9 +92,9 @@ const HomePage = () => {
       case "MyTasks":
         return <MyTasks />;
       case "TasksHistory":
-        return <div style={{marginRight:'5em', marginTop: '5em'}}>Буде історія завдань та аналіз</div>
-        case "TasksHistory2":
-          return <div style={{marginRight:'5em', marginTop: '5em'}}>Буде історія завдань та аналіз</div>
+        return <div style={{ marginRight: '5em', marginTop: '5em' }}>Буде історія завдань та аналіз</div>
+      case "TasksHistory2":
+        return <div style={{ marginRight: '5em', marginTop: '5em' }}>Буде історія завдань та аналіз</div>
       case "MyCreatedTasks":
         return <TasksPage />;
       default:
@@ -153,31 +153,31 @@ const HomePage = () => {
     <div className="login-container-main">
       <Header />
       {token ? (
-            <><div className="sidebar2">
+        <><div className="sidebar2">
           {(status === 'add' || status === 'add_and_receive') && (
-          <button onClick={() => setActiveTab("MyCreatedTasks")}
-            className={activeTab === "MyCreatedTasks" ? "active" : ""}
-          >
-            Задачі на виконання
-          </button> )}
+            <button onClick={() => setActiveTab("MyCreatedTasks")}
+              className={activeTab === "MyCreatedTasks" ? "active" : ""}
+            >
+              Задачі на виконання
+            </button>)}
           {(status === 'receive' || status === 'add_and_receive') && (
-          <button onClick={() => setActiveTab("MyTasks")}
-            className={activeTab === "MyTasks" ? "active" : ""}
-          >
-            Мої задачі
-          </button>)}
+            <button onClick={() => setActiveTab("MyTasks")}
+              className={activeTab === "MyTasks" ? "active" : ""}
+            >
+              Мої задачі
+            </button>)}
           {(status === 'receive' || status === 'add_and_receive') && (
-          <button onClick={() => setActiveTab("TasksHistory")}
-            className={activeTab === "TasksHistory" ? "active" : ""}
-          >
-            Історія моїх задач
-          </button>)}
+            <button onClick={() => setActiveTab("TasksHistory")}
+              className={activeTab === "TasksHistory" ? "active" : ""}
+            >
+              Історія моїх задач
+            </button>)}
           {(status === 'add' || status === 'add_and_receive') && (
-          <button onClick={() => setActiveTab("TasksHistory2")}
-            className={activeTab === "TasksHistory2" ? "active" : ""}
-          >
-            Історія задач на виконання
-          </button>)}
+            <button onClick={() => setActiveTab("TasksHistory2")}
+              className={activeTab === "TasksHistory2" ? "active" : ""}
+            >
+              Історія задач на виконання
+            </button>)}
         </div><div className="content-area2">{renderContent()}</div></>
       ) : (
         // Отображение формы авторизации

@@ -6,7 +6,7 @@ import Yellow from "./pngwing.com (1).png";
 import CreateTask from "../AddTasksPage/AddTasksPage"
 import plus from "../../plus.png"
 import TimePicker from "react-time-picker";
-import "react-time-picker/dist/TimePicker.css"; 
+import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
 import deleter from "../../delete.png"
 import changer from "../../change.png"
@@ -55,52 +55,53 @@ const EditTaskModal = ({ task, isOpen, onClose, onTaskUpdated }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-        alert("У вас немає прав на користування цією сторінкою");
-        window.location.href = "/";
-        return;
+      alert("У вас немає прав на користування цією сторінкою");
+      window.location.href = "/";
+      return;
     }
     const fetchGroups = async () => {
-        try {
-            const response = await fetch("http://localhost:8000/get_my_groups", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch groups");
-            }
-            const data = await response.json();
-            setGroups(data || []);
-        } catch (error) {
-            console.error("Error fetching groups:", error);
-            setGroups([]);
-        } finally {
-            setIsLoadingGroups(false);
+      try {
+        const response = await fetch("http://localhost:8000/get_my_groups", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch groups");
         }
+        const data = await response.json();
+        setGroups(data || []);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
+        setGroups([]);
+      } finally {
+        setIsLoadingGroups(false);
+      }
     };
     fetchGroups();
-}, []);
-const handleInputChange = (e) => {
-  const { name, checked, value } = e.target;  // добавили извлечение checked для checkbox
-  if (name === 'needphoto') {
+  }, []);
+  const handleInputChange = (e) => {
+    const { name, checked, value } = e.target;  // добавили извлечение checked для checkbox
+    if (name === 'needphoto') {
       setTaskDetails((prevDetails) => ({
-          ...prevDetails,
-          needphoto: checked,  // установим булевое значение
+        ...prevDetails,
+        needphoto: checked,  // установим булевое значение
       }));
-  } else if(name === 'needcomment') {
+    } else if (name === 'needcomment') {
       setTaskDetails((prevDetails) => ({
-          ...prevDetails,
-          needcomment: checked,  // установим булевое значение
-      }));}
-      else {
-      setTaskDetails((prevDetails) => ({
-          ...prevDetails,
-          [name]: value,
+        ...prevDetails,
+        needcomment: checked,  // установим булевое значение
       }));
-  }
-};
+    }
+    else {
+      setTaskDetails((prevDetails) => ({
+        ...prevDetails,
+        [name]: value,
+      }));
+    }
+  };
   const handleTimeStartChange = (newTime) => {
     setTaskDetails((prev) => ({
       ...prev,
@@ -124,22 +125,23 @@ const handleInputChange = (e) => {
     });
   };
   const importanceOptions = [
-    { value: "0", 
+    {
+      value: "0",
       label: "Не дуже важливо"
     },
     { value: "1", label: "Важливо" },
     { value: "2", label: "Дуже важливо" },
-];
+  ];
 
-const daysOfWeek = [
-  { value: "Monday", label: "Пн" },
-  { value: "Tuesday", label: "Вт" },
-  { value: "Wednesday", label: "Ср" },
-  { value: "Thursday", label: "Чт" },
-  { value: "Friday", label: "Пт" },
-  { value: "Saturday", label: "Сб" },
-  { value: "Sunday", label: "Нд" },
-];
+  const daysOfWeek = [
+    { value: "Monday", label: "Пн" },
+    { value: "Tuesday", label: "Вт" },
+    { value: "Wednesday", label: "Ср" },
+    { value: "Thursday", label: "Чт" },
+    { value: "Friday", label: "Пт" },
+    { value: "Saturday", label: "Сб" },
+    { value: "Sunday", label: "Нд" },
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -147,10 +149,10 @@ const daysOfWeek = [
     const updatedTaskDetails = {
       ...taskDetails,
       taskid: taskDetails._id, // Копируем _id в taskid
-  };
-  delete updatedTaskDetails._id; // Удаляем старое поле _id
+    };
+    delete updatedTaskDetails._id; // Удаляем старое поле _id
 
-  console.log(updatedTaskDetails); // Проверяем данные перед отправкой
+    console.log(updatedTaskDetails); // Проверяем данные перед отправкой
 
     fetch(`http://localhost:8000/update_task/`, {
       method: "PUT",
@@ -177,193 +179,193 @@ const daysOfWeek = [
 
   return (
     <div className="modal-overlay2" onClick={onClose}>
-      <div className="modal-content2" onClick={(e) => e.stopPropagation()} style = {{paddingBottom: "8%"}}>
+      <div className="modal-content2" onClick={(e) => e.stopPropagation()} style={{ paddingBottom: "8%" }}>
         <form onSubmit={handleSubmit}>
-        <div className="task-form_addTask">
-        <button className="modal-close-button2" style={{marginTop:'2.3em', marginRight: '2em'}} onClick={onClose}>✖️</button>
-        <div className="form-row" style={{marginTop: '2vw'}}>
-          <div className="form-group3_addTask">
-            <label>Тип завдання</label>
-            <select
-              name="task_type"
-              style={{width: "15em"}}
-              value={taskDetails.task_type}
-              onChange={handleInputChange}
-              className="task-type-select_addTask"
-            >
-              <option value="general">Загальні</option>
-              <option value="weekly">Щотижневі</option>
-            </select>
-          </div>
-          <div className="form-group3_addTask">
-          <label>Приоритет</label>
-                        <select
-                        name="importance"
-                        style={{width: "15em"}}
-                            value={taskDetails.importance}
-                            onChange={handleInputChange}
-                            className="task-type-select_addTask"
-                        >
-                            {importanceOptions.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-          </div></div>
-          <div className="form-group3_addTask">
-            <label>Назва</label>
-            <input
-              type="text"
-              name="title"
-              style={{width: "25em"}}
-              value={taskDetails.title}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div style={{width: "25em"}} className="form-group3_addTask">
-                            <label>Оберіть групу</label>
-                            {isLoadingGroups ? (
-                                <p>Завантаження груп...</p>
-                            ) : groups.length > 0 ? (
-                                <select
-                                    name="group"
-                                    value={taskDetails.group}
-                                    onChange={handleInputChange}
-                                    required
-                                >
-                                    <option value="" disabled>
-                                        Оберіть групу
-                                    </option>
-                                    {groups.map((group, index) => (
-                                        <option key={index} value={group}>
-                                            {group}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <p>У вас немає груп для яких ви можете створити завдання</p>
-                            )}
-                        </div>
-          {taskDetails.task_type === "weekly" && (
+          <div className="task-form_addTask">
+            <button className="modal-close-button2" style={{ marginTop: '2.3em', marginRight: '2em' }} onClick={onClose}>✖️</button>
+            <div className="form-row" style={{ marginTop: '2vw' }}>
+              <div className="form-group3_addTask">
+                <label>Тип завдання</label>
+                <select
+                  name="task_type"
+                  style={{ width: "15em" }}
+                  value={taskDetails.task_type}
+                  onChange={handleInputChange}
+                  className="task-type-select_addTask"
+                >
+                  <option value="general">Загальні</option>
+                  <option value="weekly">Щотижневі</option>
+                </select>
+              </div>
+              <div className="form-group3_addTask">
+                <label>Приоритет</label>
+                <select
+                  name="importance"
+                  style={{ width: "15em" }}
+                  value={taskDetails.importance}
+                  onChange={handleInputChange}
+                  className="task-type-select_addTask"
+                >
+                  {importanceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div></div>
             <div className="form-group3_addTask">
-              <label>Дні повторення</label>
-              <div className="form-row">
-              {daysOfWeek.map((day) => (
-                <label key={day.value} className="checkbox-label_addTask">
-                    <input
-                      type="checkbox"
-                      value={day.value}
-                      checked={taskDetails.repeat_days.includes(day.value)}
-                      onChange={handleCheckboxChange}
-                    />
-                    <span>{day.label}</span>
-                  </label>
-                )
+              <label>Назва</label>
+              <input
+                type="text"
+                name="title"
+                style={{ width: "25em" }}
+                value={taskDetails.title}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div style={{ width: "25em" }} className="form-group3_addTask">
+              <label>Оберіть групу</label>
+              {isLoadingGroups ? (
+                <p>Завантаження груп...</p>
+              ) : groups.length > 0 ? (
+                <select
+                  name="group"
+                  value={taskDetails.group}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Оберіть групу
+                  </option>
+                  {groups.map((group, index) => (
+                    <option key={index} value={group}>
+                      {group}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <p>У вас немає груп для яких ви можете створити завдання</p>
               )}
-            </div></div>
-          )}
-          <div className="form-row">
-          <div style={{marginTop: "1em"}} className="form-group3_addTask">
-            <label>Дата початку</label>
-            <input
-              type="date"
-              name="start_date"
-              style={{width: "20em"}}
-              value={taskDetails.start_date}
-              onChange={handleInputChange}
-              min={new Date().toISOString().split("T")[0]}
-              required
-            />
-          </div>
-          <div style={{marginTop: "1em"}}  className="form-group3_addTask">
-            <label>Дата закінчення</label>
-            <input
-              type="date"
-              name="end_date"
-              value={taskDetails.end_date}
-              style={{width: "20em"}}
-              onChange={handleInputChange}
-              min={new Date().toISOString().split("T")[0]}
-              required
-            />
-          </div>
-          </div>
-          <div className="form-row">
-          <div style={{marginTop: "1em"}} className="form-group3time_addTask">
-            <label>Час початку</label>
-            <TimePicker
-        id="start_time"
-        name="start_time"
-        value={taskDetails.start_time}
-        onChange={handleTimeStartChange}
-        style={{width: "20em"}}
-        format="HH:mm" // Формат времени (24-часовой)
-        required
-        className="timecustomise"
-      />
-          </div>
-          <div style={{marginTop: "1em"}} className="form-group3time_addTask">
-            <label>Час закінчення</label>
-            <TimePicker
-        id="end_time"
-        name="end_time"
-        value={taskDetails.end_time}
-        onChange={handleTimeFinishChange}
-        style={{width: "20em"}}
-        format="HH:mm" // Формат времени (24-часовой)
-        required
-        className="timecustomise"
-      />
-          </div>
-          </div>
-          <div className="form-group3_addTask">
-            <label>Опис</label>
-            <textarea
-              name="description"
-              value={taskDetails.description}
-              onChange={handleInputChange}
-              style={{width: '70%'}}
-            />
-          </div>
-          <div className="form-row">
-                        <div className = "checkboxaddtask" style={{ marginRight: '20vw', position: "relative" }}>
-                            <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно фото: </label>
-                            <input
-        type="checkbox"
-        name="needphoto"
-        id="needphoto"
-        checked={taskDetails.needphoto}
-        className="checkbox-label_addTask2"
-        onChange={handleInputChange}
-        style={{
-            position: "relative", // Относительное позиционирование
-            top: "4px", // Двигает чекбокс вниз
-            left: "0", // Можно регулировать положение по горизонтали, если потребуется
-          }}
-        
-      />
-                           
-                        </div>
-                        <div className = "checkboxaddtask" style ={{position: "relative" }}>
-                            <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно коментар: </label>
-                            <input
-        type="checkbox"
-        name="needcomment"
-        id="needcomment"
-        className="checkbox-label_addTask2"
-        checked={taskDetails.needcomment}
-        onChange={handleInputChange}
-        style={{
-            position: "relative", // Относительное позиционирование
-            top: "4px", // Двигает чекбокс вниз
-            left: "0", // Можно регулировать положение по горизонтали, если потребуется
-          }}
-      />
-                           
-                        </div></div>
-          <button type="submit" className="save-button" style={{marginTop: '2em', marginBottom: '1em', width: '15em', fontSize: '1em'}}>Зберегти</button>
+            </div>
+            {taskDetails.task_type === "weekly" && (
+              <div className="form-group3_addTask">
+                <label>Дні повторення</label>
+                <div className="form-row">
+                  {daysOfWeek.map((day) => (
+                    <label key={day.value} className="checkbox-label_addTask">
+                      <input
+                        type="checkbox"
+                        value={day.value}
+                        checked={taskDetails.repeat_days.includes(day.value)}
+                        onChange={handleCheckboxChange}
+                      />
+                      <span>{day.label}</span>
+                    </label>
+                  )
+                  )}
+                </div></div>
+            )}
+            <div className="form-row">
+              <div style={{ marginTop: "1em" }} className="form-group3_addTask">
+                <label>Дата початку</label>
+                <input
+                  type="date"
+                  name="start_date"
+                  style={{ width: "20em" }}
+                  value={taskDetails.start_date}
+                  onChange={handleInputChange}
+                  min={new Date().toISOString().split("T")[0]}
+                  required
+                />
+              </div>
+              <div style={{ marginTop: "1em" }} className="form-group3_addTask">
+                <label>Дата закінчення</label>
+                <input
+                  type="date"
+                  name="end_date"
+                  value={taskDetails.end_date}
+                  style={{ width: "20em" }}
+                  onChange={handleInputChange}
+                  min={new Date().toISOString().split("T")[0]}
+                  required
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div style={{ marginTop: "1em" }} className="form-group3time_addTask">
+                <label>Час початку</label>
+                <TimePicker
+                  id="start_time"
+                  name="start_time"
+                  value={taskDetails.start_time}
+                  onChange={handleTimeStartChange}
+                  style={{ width: "20em" }}
+                  format="HH:mm" // Формат времени (24-часовой)
+                  required
+                  className="timecustomise"
+                />
+              </div>
+              <div style={{ marginTop: "1em" }} className="form-group3time_addTask">
+                <label>Час закінчення</label>
+                <TimePicker
+                  id="end_time"
+                  name="end_time"
+                  value={taskDetails.end_time}
+                  onChange={handleTimeFinishChange}
+                  style={{ width: "20em" }}
+                  format="HH:mm" // Формат времени (24-часовой)
+                  required
+                  className="timecustomise"
+                />
+              </div>
+            </div>
+            <div className="form-group3_addTask">
+              <label>Опис</label>
+              <textarea
+                name="description"
+                value={taskDetails.description}
+                onChange={handleInputChange}
+                style={{ width: '70%' }}
+              />
+            </div>
+            <div className="form-row">
+              <div className="checkboxaddtask" style={{ marginRight: '20vw', position: "relative" }}>
+                <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно фото: </label>
+                <input
+                  type="checkbox"
+                  name="needphoto"
+                  id="needphoto"
+                  checked={taskDetails.needphoto}
+                  className="checkbox-label_addTask2"
+                  onChange={handleInputChange}
+                  style={{
+                    position: "relative", // Относительное позиционирование
+                    top: "4px", // Двигает чекбокс вниз
+                    left: "0", // Можно регулировать положение по горизонтали, если потребуется
+                  }}
+
+                />
+
+              </div>
+              <div className="checkboxaddtask" style={{ position: "relative" }}>
+                <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно коментар: </label>
+                <input
+                  type="checkbox"
+                  name="needcomment"
+                  id="needcomment"
+                  className="checkbox-label_addTask2"
+                  checked={taskDetails.needcomment}
+                  onChange={handleInputChange}
+                  style={{
+                    position: "relative", // Относительное позиционирование
+                    top: "4px", // Двигает чекбокс вниз
+                    left: "0", // Можно регулировать положение по горизонтали, если потребуется
+                  }}
+                />
+
+              </div></div>
+            <button type="submit" className="save-button" style={{ marginTop: '2em', marginBottom: '1em', width: '15em', fontSize: '1em' }}>Зберегти</button>
           </div>
         </form>
       </div>
@@ -402,68 +404,69 @@ const CopyTaskModal = ({ task, isOpen, onClose, onTaskUpdated }) => {
     }),
   };
   // eslint-disable-next-line no-unused-vars
-  const { _id,created_by,created_name,dateToComplete,...restTask } = task; // Исключаем _id из task
+  const { _id, created_by, created_name, dateToComplete, ...restTask } = task; // Исключаем _id из task
   const [taskDetails, setTaskDetails] = useState({
     ...restTask, // Используем оставшиеся поля
     start_date: "", // Переопределяем startDate
-    
+
     end_date: "", // Переопределяем endDate
     start_time: "00:00", // Переопределяем startTime
     end_time: "00:00", // Переопределяем endTime
-      });
+  });
   const [groups, setGroups] = useState(task.group);
   const [isLoadingGroups, setIsLoadingGroups] = useState(true);
 
   useEffect(() => {
-    console.log('sdf',taskDetails)
+    console.log('sdf', taskDetails)
     const token = localStorage.getItem("token");
     if (!token) {
-        alert("У вас немає прав на користування цією сторінкою");
-        window.location.href = "/";
-        return;
+      alert("У вас немає прав на користування цією сторінкою");
+      window.location.href = "/";
+      return;
     }
     const fetchGroups = async () => {
-        try {
-            const response = await fetch("http://localhost:8000/get_my_groups", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch groups");
-            }
-            const data = await response.json();
-            setGroups(data || []);
-        } catch (error) {
-            console.error("Error fetching groups:", error);
-            setGroups([]);
-        } finally {
-            setIsLoadingGroups(false);
+      try {
+        const response = await fetch("http://localhost:8000/get_my_groups", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch groups");
         }
+        const data = await response.json();
+        setGroups(data || []);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
+        setGroups([]);
+      } finally {
+        setIsLoadingGroups(false);
+      }
     };
     fetchGroups();
-}, []);
-const handleInputChange = (e) => {
-  const { name, checked, value } = e.target;  // добавили извлечение checked для checkbox
-  if (name === 'needphoto') {
+  }, []);
+  const handleInputChange = (e) => {
+    const { name, checked, value } = e.target;  // добавили извлечение checked для checkbox
+    if (name === 'needphoto') {
       setTaskDetails((prevDetails) => ({
-          ...prevDetails,
-          needphoto: checked,  // установим булевое значение
+        ...prevDetails,
+        needphoto: checked,  // установим булевое значение
       }));
-  } else if(name === 'needcomment') {
+    } else if (name === 'needcomment') {
       setTaskDetails((prevDetails) => ({
-          ...prevDetails,
-          needcomment: checked,  // установим булевое значение
-      }));}
-      else {
-      setTaskDetails((prevDetails) => ({
-          ...prevDetails,
-          [name]: value,
+        ...prevDetails,
+        needcomment: checked,  // установим булевое значение
       }));
-  }
-};
+    }
+    else {
+      setTaskDetails((prevDetails) => ({
+        ...prevDetails,
+        [name]: value,
+      }));
+    }
+  };
   const handleTimeStartChange = (newTime) => {
     setTaskDetails((prev) => ({
       ...prev,
@@ -487,22 +490,23 @@ const handleInputChange = (e) => {
     });
   };
   const importanceOptions = [
-    { value: "0", 
+    {
+      value: "0",
       label: "Не дуже важливо"
     },
     { value: "1", label: "Важливо" },
     { value: "2", label: "Дуже важливо" },
-];
+  ];
 
-const daysOfWeek = [
-  { value: "Monday", label: "Пн" },
-  { value: "Tuesday", label: "Вт" },
-  { value: "Wednesday", label: "Ср" },
-  { value: "Thursday", label: "Чт" },
-  { value: "Friday", label: "Пт" },
-  { value: "Saturday", label: "Сб" },
-  { value: "Sunday", label: "Нд" },
-];
+  const daysOfWeek = [
+    { value: "Monday", label: "Пн" },
+    { value: "Tuesday", label: "Вт" },
+    { value: "Wednesday", label: "Ср" },
+    { value: "Thursday", label: "Чт" },
+    { value: "Friday", label: "Пт" },
+    { value: "Saturday", label: "Сб" },
+    { value: "Sunday", label: "Нд" },
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -520,8 +524,8 @@ const daysOfWeek = [
       importance: taskDetails.importance,
       needphoto: taskDetails.needphoto,
       needcomment: taskDetails.needcomment
-  };
-  console.log(taskData)
+    };
+    console.log(taskData)
     fetch(`http://localhost:8000/tasks/`, {
       method: "POST",
       headers: {
@@ -547,193 +551,193 @@ const daysOfWeek = [
 
   return (
     <div className="modal-overlay2" onClick={onClose}>
-      <div className="modal-content2" onClick={(e) => e.stopPropagation()} style = {{paddingBottom: "8%"}}>
+      <div className="modal-content2" onClick={(e) => e.stopPropagation()} style={{ paddingBottom: "8%" }}>
         <form onSubmit={handleSubmit}>
-        <div className="task-form_addTask">
-        <button className="modal-close-button2" style={{marginTop:'2.3em', marginRight: '2em'}} onClick={onClose}>✖️</button>
-        <div className="form-row" style={{marginTop: '2vw'}}>
-          <div className="form-group3_addTask">
-            <label>Тип</label>
-            <select
-              name="task_type"
-              style={{width: "15em"}}
-              value={taskDetails.task_type}
-              onChange={handleInputChange}
-              className="task-type-select_addTask"
-            >
-              <option value="general">Загальні</option>
-              <option value="weekly">Щотижневі</option>
-            </select>
-          </div>
-          <div className="form-group3_addTask">
-          <label>Приоритет</label>
-                        <select
-                        name="importance"
-                        style={{width: "15em"}}
-                            value={taskDetails.importance}
-                            onChange={handleInputChange}
-                            className="task-type-select_addTask"
-                        >
-                            {importanceOptions.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-          </div></div>
-          <div className="form-group3_addTask">
-            <label>Назва</label>
-            <input
-              type="text"
-              name="title"
-              style={{width: "25em"}}
-              value={taskDetails.title}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div style={{width: "25em"}} className="form-group3_addTask">
-                            <label>Оберіть групу</label>
-                            {isLoadingGroups ? (
-                                <p>Завантаження груп...</p>
-                            ) : groups.length > 0 ? (
-                                <select
-                                    name="group"
-                                    value={taskDetails.group}
-                                    onChange={handleInputChange}
-                                    required
-                                >
-                                    <option value="" disabled>
-                                        Оберіть групу
-                                    </option>
-                                    {groups.map((group, index) => (
-                                        <option key={index} value={group}>
-                                            {group}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <p>У вас немає груп для яких ви можете створити завдання</p>
-                            )}
-                        </div>
-          {taskDetails.task_type === "weekly" && (
+          <div className="task-form_addTask">
+            <button className="modal-close-button2" style={{ marginTop: '2.3em', marginRight: '2em' }} onClick={onClose}>✖️</button>
+            <div className="form-row" style={{ marginTop: '2vw' }}>
+              <div className="form-group3_addTask">
+                <label>Тип</label>
+                <select
+                  name="task_type"
+                  style={{ width: "15em" }}
+                  value={taskDetails.task_type}
+                  onChange={handleInputChange}
+                  className="task-type-select_addTask"
+                >
+                  <option value="general">Загальні</option>
+                  <option value="weekly">Щотижневі</option>
+                </select>
+              </div>
+              <div className="form-group3_addTask">
+                <label>Приоритет</label>
+                <select
+                  name="importance"
+                  style={{ width: "15em" }}
+                  value={taskDetails.importance}
+                  onChange={handleInputChange}
+                  className="task-type-select_addTask"
+                >
+                  {importanceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div></div>
             <div className="form-group3_addTask">
-              <label>Дні повторення</label>
-              <div className="form-row">
-              {daysOfWeek.map((day) => (
-                <label key={day.value} className="checkbox-label_addTask">
-                    <input
-                      type="checkbox"
-                      value={day.value}
-                      checked={taskDetails.repeat_days.includes(day.value)}
-                      onChange={handleCheckboxChange}
-                    />
-                    <span>{day.label}</span>
-                  </label>
-                )
+              <label>Назва</label>
+              <input
+                type="text"
+                name="title"
+                style={{ width: "25em" }}
+                value={taskDetails.title}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div style={{ width: "25em" }} className="form-group3_addTask">
+              <label>Оберіть групу</label>
+              {isLoadingGroups ? (
+                <p>Завантаження груп...</p>
+              ) : groups.length > 0 ? (
+                <select
+                  name="group"
+                  value={taskDetails.group}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Оберіть групу
+                  </option>
+                  {groups.map((group, index) => (
+                    <option key={index} value={group}>
+                      {group}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <p>У вас немає груп для яких ви можете створити завдання</p>
               )}
-            </div></div>
-          )}
-          <div className="form-row">
-          <div style={{marginTop: "1em"}} className="form-group3_addTask">
-            <label>Дата початку</label>
-            <input
-              type="date"
-              name="start_date"
-              style={{width: "20em"}}
-              value={taskDetails.start_date}
-              onChange={handleInputChange}
-              min={new Date().toISOString().split("T")[0]}
-              required
-            />
-          </div>
-          <div style={{marginTop: "1em"}}  className="form-group3_addTask">
-            <label>Дата закінчення</label>
-            <input
-              type="date"
-              name="end_date"
-              value={taskDetails.end_date}
-              style={{width: "20em"}}
-              onChange={handleInputChange}
-              min={new Date().toISOString().split("T")[0]}
-              required
-            />
-          </div>
-          </div>
-          <div className="form-row">
-          <div style={{marginTop: "1em"}} className="form-group3time_addTask">
-            <label>Час початку</label>
-            <TimePicker
-        id="start_time"
-        name="start_time"
-        value={taskDetails.start_time}
-        onChange={handleTimeStartChange}
-        style={{width: "20em"}}
-        format="HH:mm" // Формат времени (24-часовой)
-        required
-        className="timecustomise"
-      />
-          </div>
-          <div style={{marginTop: "1em"}} className="form-group3time_addTask">
-            <label>Час закінчення</label>
-            <TimePicker
-        id="end_time"
-        name="end_time"
-        value={taskDetails.end_time}
-        onChange={handleTimeFinishChange}
-        style={{width: "20em"}}
-        format="HH:mm" // Формат времени (24-часовой)
-        required
-        className="timecustomise"
-      />
-          </div>
-          </div>
-          <div className="form-group3_addTask">
-            <label>Опис</label>
-            <textarea
-              name="description"
-              value={taskDetails.description}
-              onChange={handleInputChange}
-              style={{width: '70%'}}
-            />
-          </div>
-          <div className="form-row">
-                        <div className = "checkboxaddtask" style={{ marginRight: '20vw', position: "relative" }}>
-                            <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно фото: </label>
-                            <input
-        type="checkbox"
-        name="needphoto"
-        id="needphoto"
-        checked={taskDetails.needphoto}
-        className="checkbox-label_addTask2"
-        onChange={handleInputChange}
-        style={{
-            position: "relative", // Относительное позиционирование
-            top: "4px", // Двигает чекбокс вниз
-            left: "0", // Можно регулировать положение по горизонтали, если потребуется
-          }}
-        
-      />
-                           
-                        </div>
-                        <div className = "checkboxaddtask" style ={{position: "relative" }}>
-                            <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно коментар: </label>
-                            <input
-        type="checkbox"
-        name="needcomment"
-        id="needcomment"
-        className="checkbox-label_addTask2"
-        checked={taskDetails.needcomment}
-        onChange={handleInputChange}
-        style={{
-            position: "relative", // Относительное позиционирование
-            top: "4px", // Двигает чекбокс вниз
-            left: "0", // Можно регулировать положение по горизонтали, если потребуется
-          }}
-      />
-                           
-                        </div></div>
-          <button type="submit" className="save-button" style={{marginTop: '2em', marginBottom: '1em', width: '15em', fontSize: '1em'}}>Скопіювати</button>
+            </div>
+            {taskDetails.task_type === "weekly" && (
+              <div className="form-group3_addTask">
+                <label>Дні повторення</label>
+                <div className="form-row">
+                  {daysOfWeek.map((day) => (
+                    <label key={day.value} className="checkbox-label_addTask">
+                      <input
+                        type="checkbox"
+                        value={day.value}
+                        checked={taskDetails.repeat_days.includes(day.value)}
+                        onChange={handleCheckboxChange}
+                      />
+                      <span>{day.label}</span>
+                    </label>
+                  )
+                  )}
+                </div></div>
+            )}
+            <div className="form-row">
+              <div style={{ marginTop: "1em" }} className="form-group3_addTask">
+                <label>Дата початку</label>
+                <input
+                  type="date"
+                  name="start_date"
+                  style={{ width: "20em" }}
+                  value={taskDetails.start_date}
+                  onChange={handleInputChange}
+                  min={new Date().toISOString().split("T")[0]}
+                  required
+                />
+              </div>
+              <div style={{ marginTop: "1em" }} className="form-group3_addTask">
+                <label>Дата закінчення</label>
+                <input
+                  type="date"
+                  name="end_date"
+                  value={taskDetails.end_date}
+                  style={{ width: "20em" }}
+                  onChange={handleInputChange}
+                  min={new Date().toISOString().split("T")[0]}
+                  required
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div style={{ marginTop: "1em" }} className="form-group3time_addTask">
+                <label>Час початку</label>
+                <TimePicker
+                  id="start_time"
+                  name="start_time"
+                  value={taskDetails.start_time}
+                  onChange={handleTimeStartChange}
+                  style={{ width: "20em" }}
+                  format="HH:mm" // Формат времени (24-часовой)
+                  required
+                  className="timecustomise"
+                />
+              </div>
+              <div style={{ marginTop: "1em" }} className="form-group3time_addTask">
+                <label>Час закінчення</label>
+                <TimePicker
+                  id="end_time"
+                  name="end_time"
+                  value={taskDetails.end_time}
+                  onChange={handleTimeFinishChange}
+                  style={{ width: "20em" }}
+                  format="HH:mm" // Формат времени (24-часовой)
+                  required
+                  className="timecustomise"
+                />
+              </div>
+            </div>
+            <div className="form-group3_addTask">
+              <label>Опис</label>
+              <textarea
+                name="description"
+                value={taskDetails.description}
+                onChange={handleInputChange}
+                style={{ width: '70%' }}
+              />
+            </div>
+            <div className="form-row">
+              <div className="checkboxaddtask" style={{ marginRight: '20vw', position: "relative" }}>
+                <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно фото: </label>
+                <input
+                  type="checkbox"
+                  name="needphoto"
+                  id="needphoto"
+                  checked={taskDetails.needphoto}
+                  className="checkbox-label_addTask2"
+                  onChange={handleInputChange}
+                  style={{
+                    position: "relative", // Относительное позиционирование
+                    top: "4px", // Двигает чекбокс вниз
+                    left: "0", // Можно регулировать положение по горизонтали, если потребуется
+                  }}
+
+                />
+
+              </div>
+              <div className="checkboxaddtask" style={{ position: "relative" }}>
+                <label style={{ marginRight: "3px", display: "inline-block" }}>Потрібно коментар: </label>
+                <input
+                  type="checkbox"
+                  name="needcomment"
+                  id="needcomment"
+                  className="checkbox-label_addTask2"
+                  checked={taskDetails.needcomment}
+                  onChange={handleInputChange}
+                  style={{
+                    position: "relative", // Относительное позиционирование
+                    top: "4px", // Двигает чекбокс вниз
+                    left: "0", // Можно регулировать положение по горизонтали, если потребуется
+                  }}
+                />
+
+              </div></div>
+            <button type="submit" className="save-button" style={{ marginTop: '2em', marginBottom: '1em', width: '15em', fontSize: '1em' }}>Скопіювати</button>
           </div>
         </form>
       </div>
@@ -780,11 +784,11 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
     { value: "П'ятниця", label: "Friday" },
     { value: "Субота", label: "Saturday" },
     { value: "Неділя", label: "Sunday" },
-];
+  ];
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style = {{paddingBottom: "5.5%"}}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ paddingBottom: "5.5%" }}>
         <button className="modal-close-button2" onClick={onClose}>✖️</button>
         {task.description && task.description.length > 0 && (
           <div className="task-detail-item">
@@ -794,13 +798,13 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
         {task.repeat_days && task.repeat_days.length > 0 && (
           <div className="task-detail-item">
             <strong>Повторення:</strong> <p>
-      {task.repeat_days
-        .map((day) => {
-          const foundDay = daysOfWeek.find((d) => d.label === day);
-          return foundDay ? foundDay.value : day; 
-        })
-        .join(', ')}
-    </p>
+              {task.repeat_days
+                .map((day) => {
+                  const foundDay = daysOfWeek.find((d) => d.label === day);
+                  return foundDay ? foundDay.value : day;
+                })
+                .join(', ')}
+            </p>
           </div>
         )}
         <div className="task-detail-item">
@@ -860,7 +864,7 @@ function TaskItem({ task, onTaskUpdated, onTaskSelected, TaskSelected }) {
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev); // Toggle modal
   };
-  
+
   const dateObject = new Date(task.dateToComplete);
   dateObject.setHours(0, 0, 0, 0);
   console.log("=====", dateObject);
@@ -1005,55 +1009,55 @@ const TasksPage = () => {
     const dayName = days[dayOfWeek];
 
     const filtered = tasks
-        .filter((task) => {
-            const taskStartDate = new Date(task.start_date);
-            const taskEndDate = new Date(task.end_date);
+      .filter((task) => {
+        const taskStartDate = new Date(task.start_date);
+        const taskEndDate = new Date(task.end_date);
 
-            if (task.task_type === 'general') {
-                // Общая задача
-                return date >= taskStartDate && date <= taskEndDate;
-            } else if (task.task_type === 'weekly') {
-                // Еженедельная задача
-                return date >= taskStartDate && date <= taskEndDate && task.repeat_days.includes(dayName);
-            }
+        if (task.task_type === 'general') {
+          // Общая задача
+          return date >= taskStartDate && date <= taskEndDate;
+        } else if (task.task_type === 'weekly') {
+          // Еженедельная задача
+          return date >= taskStartDate && date <= taskEndDate && task.repeat_days.includes(dayName);
+        }
 
-            return false;
-        })
-        .map((task) => ({
-            ...task, // Создаем новый объект
-            dateToComplete: date, // Добавляем дату выполнения
-        }));
+        return false;
+      })
+      .map((task) => ({
+        ...task, // Создаем новый объект
+        dateToComplete: date, // Добавляем дату выполнения
+      }));
 
     console.log(date, filtered);
     return filtered;
-};
-const filterTasksByDate = (startDate, endDate) => {
-  
-  console.log("Start:", startDate, "End:", endDate);
+  };
+  const filterTasksByDate = (startDate, endDate) => {
 
-  const allTasks = [];
+    console.log("Start:", startDate, "End:", endDate);
 
-  // Пробегаемся по всем датам от startDate до endDate включительно
-  for (
-    let currentDate = new Date(startDate);
-    clearTime(currentDate) <= clearTime(endDate);
-    currentDate.setDate(currentDate.getDate() + 1)
-  ) {
-    console.log("Processing date:", currentDate);
+    const allTasks = [];
 
-    // Передаём копию currentDate, чтобы избежать изменения объекта
-    const currentDayTasks = filterTasksByDate2(new Date(currentDate));
+    // Пробегаемся по всем датам от startDate до endDate включительно
+    for (
+      let currentDate = new Date(startDate);
+      clearTime(currentDate) <= clearTime(endDate);
+      currentDate.setDate(currentDate.getDate() + 1)
+    ) {
+      console.log("Processing date:", currentDate);
 
-    if (Array.isArray(currentDayTasks) && currentDayTasks.length > 0) {
-      allTasks.push(...currentDayTasks);
+      // Передаём копию currentDate, чтобы избежать изменения объекта
+      const currentDayTasks = filterTasksByDate2(new Date(currentDate));
+
+      if (Array.isArray(currentDayTasks) && currentDayTasks.length > 0) {
+        allTasks.push(...currentDayTasks);
+      }
     }
-  }
 
-  console.log("Filtered tasks:", allTasks);
-  setFilteredTasks(allTasks);
-};
+    console.log("Filtered tasks:", allTasks);
+    setFilteredTasks(allTasks);
+  };
 
-  
+
 
   useEffect(() => {
     // Получаем токен из localStorage
@@ -1097,22 +1101,22 @@ const filterTasksByDate = (startDate, endDate) => {
   const handleDateChange = (e) => {
     const selected = e.target.value; // Получаем строку вида "YYYY-MM-DD"
     const date = new Date(selected); // Преобразуем строку в объект Date
-    if(clearTime(date) > clearTime(EndselectedDate)){
+    if (clearTime(date) > clearTime(EndselectedDate)) {
       alert('Дата початку не може бути більшою за дату кінця')
       return;
     }
     setSelectedDate(date); // Устанавливаем дату как объект Date
-    
+
   };
   const handleDateChange2 = (e) => {
     const selected = e.target.value; // Получаем строку вида "YYYY-MM-DD"
     const date = new Date(selected); // Преобразуем строку в объект Date
-    if(clearTime(date) < clearTime(selectedDate)){
+    if (clearTime(date) < clearTime(selectedDate)) {
       alert('Дата кінця не може бути меншою за дату початку')
       return;
     }
     setEndSelectedDate(date); // Устанавливаем дату как объект Date
-    
+
   };
 
   const handleTaskUpdated = (updatedTask) => {
@@ -1125,22 +1129,22 @@ const filterTasksByDate = (startDate, endDate) => {
 
   return (
     <div className="table-container">
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      {/* Календарь для выбора даты */}
-      <div
-        style={{
-          marginTop: "5vw",
-          marginBottom: "2em",
-          textAlign: "center",
-        }}
-      >
-        <input
+      <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+        {/* Календарь для выбора даты */}
+        <div
+          style={{
+            marginTop: "5vw",
+            marginBottom: "2em",
+            textAlign: "center",
+          }}
+        >
+          <input
             type="date"
             name="startDate"
             value={selectedDate.toISOString().split("T")[0]}  // Обновим формат для отображения (YYYY-MM-DD)
             onChange={handleDateChange}  // Обработчик изменения
             required
-            
+
             style={{ width: "25em", padding: "10px", fontSize: "1.2em", borderRadius: "8px", height: '4vw', marginRight: '1vw' }}
           />
           ---
@@ -1150,36 +1154,36 @@ const filterTasksByDate = (startDate, endDate) => {
             value={EndselectedDate.toISOString().split("T")[0]}  // Обновим формат для отображения (YYYY-MM-DD)
             onChange={handleDateChange2}  // Обработчик изменения
             required
-            
+
             style={{ width: "25em", padding: "10px", fontSize: "1.2em", borderRadius: "8px", height: '4vw', marginLeft: '1vw' }}
           />
-      </div>
-      <img className="createuser-button" onClick={openCreateTaskModal} src={plus} style={{marginLeft: '92%'}} ></img>
-      <table className="task-list" style={{ marginBottom: selectedTask ? "10%" : "0" }}>
-        <thead>
-        <tr>
-        <th>Приоритет</th>
-    <th>Дедлайн</th>
-    <th>Группа</th>
-    <th style = {{width: "30%"}}>Назва</th>
-    <th>Процент виконання</th>
-  </tr>
-        </thead>
-        <tbody>
-          {filteredTasks.length > 0 ? (
-            // eslint-disable-next-line react/jsx-key
-            filteredTasks.map((task) => <TaskItem task={task} onTaskUpdated={handleTaskUpdated} onTaskSelected={setSelectedTask} TaskSelected={selectedTask} />)
-          ) : (
+        </div>
+        <img className="createuser-button" onClick={openCreateTaskModal} src={plus} style={{ marginLeft: '92%' }} ></img>
+        <table className="task-list" style={{ marginBottom: selectedTask ? "10%" : "0" }}>
+          <thead>
             <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>Завдань немає.</td>
+              <th>Приоритет</th>
+              <th>Дедлайн</th>
+              <th>Группа</th>
+              <th style={{ width: "30%" }}>Назва</th>
+              <th>Процент виконання</th>
             </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
-    {isCreateTaskModalOpen && (
+          </thead>
+          <tbody>
+            {filteredTasks.length > 0 ? (
+              // eslint-disable-next-line react/jsx-key
+              filteredTasks.map((task) => <TaskItem task={task} onTaskUpdated={handleTaskUpdated} onTaskSelected={setSelectedTask} TaskSelected={selectedTask} />)
+            ) : (
+              <tr>
+                <td colSpan="5" style={{ textAlign: "center" }}>Завдань немає.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      {isCreateTaskModalOpen && (
         <div className="modal">
-          <CreateTask onClose = {closeCreateTaskModal}/>
+          <CreateTask onClose={closeCreateTaskModal} />
         </div>)}
     </div>
   );

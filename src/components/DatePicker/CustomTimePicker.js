@@ -88,8 +88,8 @@ class CustomTimePicker extends Component {
           value={
             this.state.selectedValue
               ? this.adjustTimeInBounds(this.state.selectedValue).format(
-                  this.TIME_FORMAT
-                )
+                this.TIME_FORMAT
+              )
               : undefined
           }
           endAdornment={

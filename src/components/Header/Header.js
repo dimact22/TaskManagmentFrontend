@@ -5,38 +5,39 @@ import { FaUserCircle } from "react-icons/fa";
 const Header = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false); // Управление видимостью выпадающего списка
   const [isProfileVisible, setProfileVisible] = useState(false);
-  const [profinfo,setProfInfo] = useState([]);
+  const [profinfo, setProfInfo] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token){
+    if (token) {
       setProfileVisible(true);
-    const fetchinfo = async () => {
-      try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/get_my_info`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+      const fetchinfo = async () => {
+        try {
+          const response = await fetch(
+            `http://127.0.0.1:8000/get_my_info`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.ok) {
+            const status = await response.json();
+            console.log(status)
+            setProfInfo(status);
+          } else {
+            console.error("Failed to fetch info");
           }
-        );
-        if (response.ok) {
-          const status = await response.json();
-          console.log(status)
-          setProfInfo(status);
-        } else {
-          console.error("Failed to fetch info");
+        } catch (error) {
+          console.error("Error fetching info:", error);
         }
-      } catch (error) {
-        console.error("Error fetching info:", error);
-      } 
-    };
-    
-    fetchinfo();
-  }}, []);
+      };
+
+      fetchinfo();
+    }
+  }, []);
 
   // Функция для обработки нажатия на "Вийти"
   const handleLogout = () => {
@@ -49,14 +50,14 @@ const Header = () => {
     <header className="header">
       <div className="header-buttons">
         <h1 className="header-buttonsp">Менеджер задач</h1>
-        <h1 className="header-buttonsp" style={{Right: '0vw'}}>{profinfo[0]?.name}</h1>
+        <h1 className="header-buttonsp" style={{ Right: '0vw' }}>{profinfo[0]?.name}</h1>
         {profinfo[0]?.status === "admin" && (
           <a href="/admin" className="header-buttonsp">
             Admin panel
           </a>
         )}
-</div>
-          {isProfileVisible && (
+      </div>
+      {isProfileVisible && (
         <div className="user-dropdown">
           <FaUserCircle
             className="styles-icon"
@@ -66,12 +67,11 @@ const Header = () => {
             <div className="dropdown-menu">
               <button className="dropdown-item" onClick={() => alert(`Ім'я = ${profinfo[0]?.name}
 Телефон = ${profinfo[0]?.phone}
-Статус = ${
-  profinfo[0]?.status === "add" ? "Постановщик задач" :
-  profinfo[0]?.status === "receive" ? "Отримувач задач" :
-  profinfo[0]?.status === "add_and_receive" ? "Постановщик та отримувач задач" :
-  "Admin"
-}
+Статус = ${profinfo[0]?.status === "add" ? "Постановщик задач" :
+                  profinfo[0]?.status === "receive" ? "Отримувач задач" :
+                    profinfo[0]?.status === "add_and_receive" ? "Постановщик та отримувач задач" :
+                      "Admin"
+                }
 `
               )}>
                 Профіль
@@ -82,7 +82,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        )}
+      )}
     </header>
   );
 };

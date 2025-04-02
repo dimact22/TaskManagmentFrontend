@@ -1,7 +1,8 @@
 .page-container {
   margin-top: 10ex;
   display: flex;
-  min-height: 100vh; /* Контейнер занимает всю высоту экрана */
+  min-height: 100vh;
+  /* Контейнер занимает всю высоту экрана */
   box-sizing: border-box;
 }
 
@@ -12,19 +13,22 @@
   padding: 20px;
   background-color: #f4f4f4;
   border-right: 1px solid #ddd;
-  min-width: 25%; /* Ширина сайдбара */
+  min-width: 25%;
+  /* Ширина сайдбара */
 }
+
 .sidebar2 {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 20px;
   margin-top: 10em;
-  
+
   height: 100%;
   background-color: #f4f4f4;
   border-right: 1px solid #ddd;
-  min-width: 15em; /* Ширина сайдбара */
+  min-width: 15em;
+  /* Ширина сайдбара */
 }
 
 .sidebar2 button {
@@ -59,84 +63,113 @@
 .content-area {
   display: flex;
   flex-grow: 1;
-  justify-content: center; /* Центрируем по горизонтали */
+  justify-content: center;
+  /* Центрируем по горизонтали */
   padding: 20px;
-  
+
 }
+
 .content-area2 {
   margin-top: 0em;
   padding: 20px;
   margin-left: 20.5%;
-  
+
 }
 
-.registration-form{
+.registration-form {
   margin-top: 20px;
 }
 
 .user-table {
   margin-top: 20px;
-  width: 80%;              /* Форма и таблица будут занимать всю ширину контейнера */
+  width: 80%;
+  /* Форма и таблица будут занимать всю ширину контейнера */
 }
 
 /* Стили для формы */
 .registration-form {
-  width: 100%;              /* Форма занимает всю ширину контейнера */
+  width: 100%;
+  /* Форма занимает всю ширину контейнера */
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f9f9f9;
   display: flex;
-  flex-direction: column;   /* Элементы будут располагаться вертикально */
+  flex-direction: column;
+  /* Элементы будут располагаться вертикально */
   margin-bottom: 3%;
 }
 
 .registration-form input,
 .registration-form select {
-  width: 100%;              /* Полная ширина для инпутов и селектов */
+  width: 100%;
+  /* Полная ширина для инпутов и селектов */
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-top: 10px;         /* Расстояние сверху для инпутов и селектов */
-  margin-bottom: 10px;      /* Расстояние снизу для инпутов и селектов */
-  box-sizing: border-box;   /* Включает паддинги и бордеры в ширину элемента */
+  margin-top: 10px;
+  /* Расстояние сверху для инпутов и селектов */
+  margin-bottom: 10px;
+  /* Расстояние снизу для инпутов и селектов */
+  box-sizing: border-box;
+  /* Включает паддинги и бордеры в ширину элемента */
 }
 
 /* Стили для кнопки */
 .create-button {
-  margin-top: 20px;         /* Отступ сверху для кнопки */
-  padding: 10px 20px;       /* Отступы внутри кнопки */
-  font-size: 16px;          /* Размер шрифта */
-  background-color: #28a745; /* Цвет фона */
-  color: white;             /* Цвет текста */
-  border: none;             /* Без границы */
-  border-radius: 5px;       /* Скругленные углы */
-  cursor: pointer;          /* Курсор как указатель */
-  transition: background-color 0.3s ease; /* Плавный переход для фона */
-  width: 50%;              /* Ширина кнопки будет на 100% ширины формы */
-  text-align: center;       /* Текст по центру */
-  margin: 20px auto 0;      /* Центрируем кнопку с отступами сверху и снизу */
+  margin-top: 20px;
+  /* Отступ сверху для кнопки */
+  padding: 10px 20px;
+  /* Отступы внутри кнопки */
+  font-size: 16px;
+  /* Размер шрифта */
+  background-color: #28a745;
+  /* Цвет фона */
+  color: white;
+  /* Цвет текста */
+  border: none;
+  /* Без границы */
+  border-radius: 5px;
+  /* Скругленные углы */
+  cursor: pointer;
+  /* Курсор как указатель */
+  transition: background-color 0.3s ease;
+  /* Плавный переход для фона */
+  width: 50%;
+  /* Ширина кнопки будет на 100% ширины формы */
+  text-align: center;
+  /* Текст по центру */
+  margin: 20px auto 0;
+  /* Центрируем кнопку с отступами сверху и снизу */
 }
 
 /* Кнопка при наведении */
 .create-button:hover {
-  background-color: #218838; /* Цвет фона при наведении */
+  background-color: #218838;
+  /* Цвет фона при наведении */
 }
+
 .centered-div {
   display: flex;
-  justify-content: center; /* Горизонтальное выравнивание */
-  align-items: center; /* Вертикальное выравнивание */
-  height: 100%; /* Обеспечьте высоту для вертикального центрирования */
+  justify-content: center;
+  /* Горизонтальное выравнивание */
+  align-items: center;
+  /* Вертикальное выравнивание */
+  height: 100%;
+  /* Обеспечьте высоту для вертикального центрирования */
 }
+
 /* Стили для таблицы */
 .user-table {
-  margin-top: 20px; /* Отступ между формой и таблицей */
+  margin-top: 20px;
+  /* Отступ между формой и таблицей */
   width: 100%;
   text-align: center;
   border-collapse: collapse;
   background-color: white;
 }
+
 .user-table th,
 .user-table td {
   padding: 10px;
@@ -160,10 +193,11 @@
 .delete-button:hover {
   background-color: #c0392b;
 }
+
 .button-container {
-  display: flex;            
-  justify-content: space-between; 
-  width: 100%;              
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .toggle-button {
@@ -188,30 +222,44 @@
 }
 
 .delete-button {
-  padding: 5px 10px;         /* Отступы внутри кнопки */
-  font-size: 14px;            /* Размер шрифта */
-  background-color: #e74c3c; /* Красный фон */
-  color: white;              /* Белый цвет текста */
-  border: none;              /* Без границ */
-  border-radius: 5px;        /* Скругленные углы */
-  cursor: pointer;           /* Курсор как указатель */
-  transition: background-color 0.3s ease; /* Плавный переход для фона */
-  text-align: center;        /* Текст по центру */
+  padding: 5px 10px;
+  /* Отступы внутри кнопки */
+  font-size: 14px;
+  /* Размер шрифта */
+  background-color: #e74c3c;
+  /* Красный фон */
+  color: white;
+  /* Белый цвет текста */
+  border: none;
+  /* Без границ */
+  border-radius: 5px;
+  /* Скругленные углы */
+  cursor: pointer;
+  /* Курсор как указатель */
+  transition: background-color 0.3s ease;
+  /* Плавный переход для фона */
+  text-align: center;
+  /* Текст по центру */
 }
 
 .delete-button:hover {
-  background-color: #c0392b; /* Темнее красный при наведении */
+  background-color: #c0392b;
+  /* Темнее красный при наведении */
 }
 
 .delete-button:focus {
-  outline: none;             /* Убираем обводку при фокусе */
+  outline: none;
+  /* Убираем обводку при фокусе */
 }
 
 .sidebar button.active {
-  background-color: #0056b3; /* Цвет для активной кнопки */
+  background-color: #0056b3;
+  /* Цвет для активной кнопки */
 }
+
 .sidebar2 button.active {
-  background-color: #0056b3; /* Цвет для активной кнопки */
+  background-color: #0056b3;
+  /* Цвет для активной кнопки */
 }
 
 /* Контейнер формы */
@@ -243,7 +291,8 @@
 }
 
 /* Стили для select (выбор пользователя или менеджера) */
-.select-manager, .select-users {
+.select-manager,
+.select-users {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -309,11 +358,12 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  
+
 }
 
 .input-group-name:focus {
-  border-color: #007bff; /* Цвет рамки при фокусе */
+  border-color: #007bff;
+  /* Цвет рамки при фокусе */
   outline: none;
 }
 
@@ -327,11 +377,12 @@
 .create-group-form-container {
   width: 100%;
   padding: 30px;
-  margin-bottom:8%;
+  margin-bottom: 8%;
   background-color: #f9f9f9;
-  border-radius: 8px;   
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 /* Общие стили для всех элементов формы */
 .form-group-item {
   margin-bottom: 15px;
@@ -390,10 +441,13 @@
 .group-table .delete-button:hover {
   background-color: #e60000;
 }
-.create-group-form-container button{
+
+.create-group-form-container button {
   display: flex;
-  flex-direction: column; /* Элементы идут вертикально */
-  align-items: center; /* Центрирует содержимое горизонтально */
+  flex-direction: column;
+  /* Элементы идут вертикально */
+  align-items: center;
+  /* Центрирует содержимое горизонтально */
   justify-content: center;
 }
 
@@ -402,8 +456,10 @@
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
-  text-align: center; /* Горизонтальное центрирование текста */
-  vertical-align: middle; /* Вертикальное центрирование текста */
+  text-align: center;
+  /* Горизонтальное центрирование текста */
+  vertical-align: middle;
+  /* Вертикальное центрирование текста */
 }
 
 .user-table th,
@@ -444,7 +500,8 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-right: 5px; /* Отступ между кнопками */
+  margin-right: 5px;
+  /* Отступ между кнопками */
 }
 
 .save-button:hover {
@@ -478,7 +535,8 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-right: 5px; /* Отступ между кнопками */
+  margin-right: 5px;
+  /* Отступ между кнопками */
   margin-bottom: 2px;
 }
 
@@ -627,13 +685,16 @@
 
 .action-popup {
   position: fixed;
-  bottom: 2em; /* Расстояние от нижней границы экрана */
+  bottom: 2em;
+  /* Расстояние от нижней границы экрана */
   height: 20%;
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center; /* Центрует кнопки по горизонтали */
-  align-items: center; /* Центрует кнопки по вертикали в области action-popup */
+  justify-content: center;
+  /* Центрует кнопки по горизонтали */
+  align-items: center;
+  /* Центрует кнопки по вертикали в области action-popup */
   background: #ededed;
   padding: 1em 0;
   border-top: 2px solid #eaeaea;
@@ -642,14 +703,17 @@
 }
 
 .popup-button {
-  padding: 0.3em 1em; /* Уменьшена высота кнопок */
-  font-size: 0.9em; /* Небольшое уменьшение размера шрифта */
+  padding: 0.3em 1em;
+  /* Уменьшена высота кнопок */
+  font-size: 0.9em;
+  /* Небольшое уменьшение размера шрифта */
   border: none;
   border-radius: 5px;
   height: 50%;
   width: 20%;
   cursor: pointer;
-  margin: 0 1em; /* Отступы между кнопками */
+  margin: 0 1em;
+  /* Отступы между кнопками */
 }
 
 .edit-button2 {
@@ -672,6 +736,7 @@
     bottom: -5em;
     opacity: 0;
   }
+
   to {
     bottom: 0;
     opacity: 1;
@@ -684,28 +749,35 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Затемнённый фон */
+  background: rgba(0, 0, 0, 0.5);
+  /* Затемнённый фон */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Поверх всего */
+  z-index: 9999;
+  /* Поверх всего */
 }
 
 .modal-content3 {
   padding: 2em;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  max-width: 60%; /* Убедитесь, что окно адаптируется к экрану */
+  max-width: 60%;
+  /* Убедитесь, что окно адаптируется к экрану */
   animation: scale-in 0.3s ease-out;
   overflow: hidden;
 }
-.createuser-button {             
+
+.createuser-button {
   margin-left: 94%;
-  padding: 10px 20px;             /* Добавление отступов для кнопки */
+  padding: 10px 20px;
+  /* Добавление отступов для кнопки */
   width: 8vw;
   height: 4.5vw;
-  cursor: pointer;                /* Курсор при наведении */
-  transition: background-color 0.3s ease;  /* Плавный переход при наведении */
+  cursor: pointer;
+  /* Курсор при наведении */
+  transition: background-color 0.3s ease;
+  /* Плавный переход при наведении */
 }
 
 .modal-overlay4 {
@@ -714,30 +786,40 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);  /* Тёмный фон */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Тёмный фон */
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;  /* Растягивается на всю ширину экрана */
-  height: 100%; /* Растягивается на всю высоту экрана */
-  z-index: 1000; /* Обеспечивает, что попап будет поверх других элементов */
+  width: 100%;
+  /* Растягивается на всю ширину экрана */
+  height: 100%;
+  /* Растягивается на всю высоту экрана */
+  z-index: 1000;
+  /* Обеспечивает, что попап будет поверх других элементов */
 }
 
 /* Контейнер с контентом модального окна */
 .modal-content4 {
   background-color: white;
   padding: 20px;
-  width: 800%; /* Максимальная ширина окна */
-  max-width: 90%; /* Устанавливаем максимальную ширину */
-  height: 90vh; /* Устанавливаем максимальную высоту окна (80% от высоты экрана) */
+  width: 800%;
+  /* Максимальная ширина окна */
+  max-width: 90%;
+  /* Устанавливаем максимальную ширину */
+  height: 90vh;
+  /* Устанавливаем максимальную высоту окна (80% от высоты экрана) */
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
-  overflow-y: auto; /* Появление вертикальной прокрутки, если контент выходит за пределы */
-  word-wrap: break-word; /* Перенос слов, если они не помещаются */
-  white-space: pre-wrap; /* Перенос строк внутри блока */
+  overflow-y: auto;
+  /* Появление вертикальной прокрутки, если контент выходит за пределы */
+  word-wrap: break-word;
+  /* Перенос слов, если они не помещаются */
+  white-space: pre-wrap;
+  /* Перенос строк внутри блока */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
 }

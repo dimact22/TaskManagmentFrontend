@@ -17,18 +17,18 @@ const CommentModal = ({ isOpen, onSubmit, onCancel, needcom }) => {
   if (!isOpen) return null;
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     if (needcom === 1 && !comment) {
       alert("Коментар є обов'язковим!");
-      
-    }else{
+
+    } else {
       onSubmit(comment)
     }
   }
   return (
     <div className="modal-overlay" onClick={onCancel}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h3 style={{marginBottom: '0.25em'}}>Коментар{needcom ===1?'*': ''}</h3>
+        <h3 style={{ marginBottom: '0.25em' }}>Коментар{needcom === 1 ? '*' : ''}</h3>
         <textarea
           placeholder="Введіть свій коментар"
           value={comment}
@@ -97,12 +97,12 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
     { value: "П'ятниця", label: "Friday" },
     { value: "Субота", label: "Saturday" },
     { value: "Неділя", label: "Sunday" },
-];
+  ];
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{paddingBottom: "5%"}}>
-      <button className="modal-close-button2" style={{marginTop:'0.3vw', marginRight: '0vw'}} onClick={onClose}>✖️</button>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ paddingBottom: "5%" }}>
+        <button className="modal-close-button2" style={{ marginTop: '0.3vw', marginRight: '0vw' }} onClick={onClose}>✖️</button>
         {task.description && task.description.length > 0 && (
           <div className="task-detail-item">
             <strong>Опис:</strong> <p>{task.description}</p>
@@ -111,12 +111,12 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
         {task.repeat_days && task.repeat_days.length > 0 && (
           <div className="task-detail-item">
             <strong>Повторення:</strong> <p>{task.repeat_days
-        .map((day) => {
-          const foundDay = daysOfWeek.find((d) => d.label === day);
-          return foundDay ? foundDay.value : day; 
-        })
-        .join(', ')}
-    </p>
+              .map((day) => {
+                const foundDay = daysOfWeek.find((d) => d.label === day);
+                return foundDay ? foundDay.value : day;
+              })
+              .join(', ')}
+            </p>
           </div>
         )}
         <div className="task-detail-item">
@@ -137,7 +137,7 @@ const TaskDetailModal = ({ task, isOpen, onClose }) => {
 };
 
 // eslint-disable-next-line react/prop-types
-const TaskItem = ({ task, onTaskSelected, TaskSelected  }) => {
+const TaskItem = ({ task, onTaskSelected, TaskSelected }) => {
   TaskItem.propTypes = {
     task: PropTypes.shape({
       _id: PropTypes.string.isRequired,
@@ -182,30 +182,30 @@ const TaskItem = ({ task, onTaskSelected, TaskSelected  }) => {
 
   const compareDates = () => {
     const today = new Date();
-    
-    const isSameDay = task.dateToComplete.getDate() === today.getDate() && 
-    task.dateToComplete.getMonth() === today.getMonth() && 
-    task.dateToComplete.getFullYear() === today.getFullYear();
-  
-    console.log(isSameDay);  
+
+    const isSameDay = task.dateToComplete.getDate() === today.getDate() &&
+      task.dateToComplete.getMonth() === today.getMonth() &&
+      task.dateToComplete.getFullYear() === today.getFullYear();
+
+    console.log(isSameDay);
     return isSameDay;
   };
   const compareDates2 = () => {
     const now = new Date();
 
-      // Время из БД: "13:12"
-      const [hours, minutes] = task.start_time.split(":").map(Number);
+    // Время из БД: "13:12"
+    const [hours, minutes] = task.start_time.split(":").map(Number);
 
-      // Создаем объект времени из БД для сравнения
-      const dbDate = new Date();
-      dbDate.setHours(hours, minutes, 0, 0); // Устанавливаем часы, минуты, секунды, миллисекунды
-      // Сравниваем
-      if (now > dbDate) {
-        return true;
-      } else {
-        return false;
-      }
-    };  
+    // Создаем объект времени из БД для сравнения
+    const dbDate = new Date();
+    dbDate.setHours(hours, minutes, 0, 0); // Устанавливаем часы, минуты, секунды, миллисекунды
+    // Сравниваем
+    if (now > dbDate) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   const handleButtonPauseClick = () => {
     const currentTime = getKyivTime();
     const savedState = JSON.parse(localStorage.getItem("taskState")) || {};
@@ -320,100 +320,99 @@ const TaskItem = ({ task, onTaskSelected, TaskSelected  }) => {
 
   return (
     <>
-      
-        <>
-          <tr
-            className={`${task.isUrgent ? "task-item urgent" : "task-item"} ${
-              TaskSelected?.key === task.key ? "selectedgroup" : ""
+
+      <>
+        <tr
+          className={`${task.isUrgent ? "task-item urgent" : "task-item"} ${TaskSelected?.key === task.key ? "selectedgroup" : ""
             }`}
-            onClick={() => onTaskSelected(task)}
-          >
-            <td>
-              <div style={{ marginTop: "8px", textAlign: "center" }}>
-                <img
-                  src={
-                    task.importance === 0
-                      ? Green
-                      : task.importance === 1
+          onClick={() => onTaskSelected(task)}
+        >
+          <td>
+            <div style={{ marginTop: "8px", textAlign: "center" }}>
+              <img
+                src={
+                  task.importance === 0
+                    ? Green
+                    : task.importance === 1
                       ? Yellow
                       : Red
-                  }
-                  alt="Importance"
-                  style={{ width: "2em", verticalAlign: "middle", marginLeft: "0.2em" }}
-                />
-              </div>
-            </td>
-            {compareDates() ? (
-    <td>{task.end_time}</td> // Только время, если даты совпадают
-  ) : (
-    <td>{task.dateToComplete.toLocaleDateString()} {task.end_time}</td>
-  )}
-            <td>{task.created_name}</td>
-            <td style={{ maxWidth: "100%" }}>{task.title} {allowToRun}</td>
-          </tr>
-  
-          {TaskSelected === task && (
-            <div className="action-popup" style={{ zIndex: "1002" }}>
-              <div
+                }
+                alt="Importance"
+                style={{ width: "2em", verticalAlign: "middle", marginLeft: "0.2em" }}
+              />
+            </div>
+          </td>
+          {compareDates() ? (
+            <td>{task.end_time}</td> // Только время, если даты совпадают
+          ) : (
+            <td>{task.dateToComplete.toLocaleDateString()} {task.end_time}</td>
+          )}
+          <td>{task.created_name}</td>
+          <td style={{ maxWidth: "100%" }}>{task.title} {allowToRun}</td>
+        </tr>
+
+        {TaskSelected === task && (
+          <div className="action-popup" style={{ zIndex: "1002" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+                paddingLeft: "20%",
+                paddingRight: "20%",
+              }}
+            >
+              <img
+                title="Вийти"
+                onClick={handleCloseModal}
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  width: "100%",
-                  paddingLeft: "20%",
-                  paddingRight: "20%",
+                  height: "4vw",
+                  width: "4.5vw",
+                  cursor: "pointer",
                 }}
-              >
-                <img
-                  title="Вийти"
-                  onClick={handleCloseModal}
-                  style={{
-                    height: "4vw",
-                    width: "4.5vw",
-                    cursor: "pointer",
-                  }}
-                  src={door}
-                ></img>
-                <img
-                  title="Деталі"
-                  onClick={toggleModal}
-                  style={{
-                    height: "4.2vw",
-                    width: "4.5vw",
-                    cursor: "pointer",
-                  }}
-                  src={more}
-                ></img>
-                {compareDates() && compareDates2() && (
-                  <>
-                    {buttonState === "Завершити завдання" && (
-                      <button
-                        title="Почати/Завершити паузу"
-                        style={{
-                          fontSize: "3vw",
-                          cursor: "pointer",
-                          border: "none",
-                          marginBottom: "0.5vw",
-                        }}
-                        onClick={handleButtonPauseClick}
-                      >
-                        {isPause === 0 ? "⏸️" : "▶️"}
-                      </button>
-                    )}
+                src={door}
+              ></img>
+              <img
+                title="Деталі"
+                onClick={toggleModal}
+                style={{
+                  height: "4.2vw",
+                  width: "4.5vw",
+                  cursor: "pointer",
+                }}
+                src={more}
+              ></img>
+              {compareDates() && compareDates2() && (
+                <>
+                  {buttonState === "Завершити завдання" && (
                     <button
-                      title="Почати/Завершити задачу"
+                      title="Почати/Завершити паузу"
                       style={{
-                        fontSize: "3.5vw",
+                        fontSize: "3vw",
                         cursor: "pointer",
                         border: "none",
-                        marginBottom: "1vw",
-                        backgroundColor: "transparent",
+                        marginBottom: "0.5vw",
                       }}
-                      onClick={handleButtonClick}
+                      onClick={handleButtonPauseClick}
                     >
-                      {buttonState === "Почати завдання" ? "📥" : "✔️"}
+                      {isPause === 0 ? "⏸️" : "▶️"}
                     </button>
-                    <button
+                  )}
+                  <button
+                    title="Почати/Завершити задачу"
+                    style={{
+                      fontSize: "3.5vw",
+                      cursor: "pointer",
+                      border: "none",
+                      marginBottom: "1vw",
+                      backgroundColor: "transparent",
+                    }}
+                    onClick={handleButtonClick}
+                  >
+                    {buttonState === "Почати завдання" ? "📥" : "✔️"}
+                  </button>
+                  <button
                     title='Відмінити завдання'
                     style={{
                       fontSize: "3vw",
@@ -423,45 +422,46 @@ const TaskItem = ({ task, onTaskSelected, TaskSelected  }) => {
                       backgroundColor: "transparent",
                     }}
                     onClick={submitcanceltask}
-                    >
-❌
-                    </button>
-                  </>
-                )}
-              </div>
+                  >
+                    ❌
+                  </button>
+                </>
+              )}
             </div>
-          )}
-  
-          {/* TaskDetailModal */}
-          {isModalOpen && (
-            <TaskDetailModal task={task} isOpen={isModalOpen} onClose={toggleModal} />
-          )}
-  
-  {isCommentModalOpen2 && (
-            <CommentModal
-              isOpen={isCommentModalOpen2}
-              needcom= {1}
-              onSubmit={(comment) => {
-                handleCancelTask(comment);
-                setIsCommentModalOpen2(false); // Закрыть модальное окно
-              }}
-              onCancel={() => setIsCommentModalOpen2(false)} // Закрыть модальное окно без действия
-            />
-          )}
-          {isCommentModalOpen && (
-            <CommentModal
-              isOpen={isCommentModalOpen}
-              needcom={task.needcomment}
-              onSubmit={(comment) => {
-                handleFinishTask(comment);
-                setIsCommentModalOpen(false); // Закрыть модальное окно
-              }}
-              onCancel={() => setIsCommentModalOpen(false)} // Закрыть модальное окно без действия
-            />
-          )}
-        </>
+          </div>
+        )}
+
+        {/* TaskDetailModal */}
+        {isModalOpen && (
+          <TaskDetailModal task={task} isOpen={isModalOpen} onClose={toggleModal} />
+        )}
+
+        {isCommentModalOpen2 && (
+          <CommentModal
+            isOpen={isCommentModalOpen2}
+            needcom={1}
+            onSubmit={(comment) => {
+              handleCancelTask(comment);
+              setIsCommentModalOpen2(false); // Закрыть модальное окно
+            }}
+            onCancel={() => setIsCommentModalOpen2(false)} // Закрыть модальное окно без действия
+          />
+        )}
+        {isCommentModalOpen && (
+          <CommentModal
+            isOpen={isCommentModalOpen}
+            needcom={task.needcomment}
+            onSubmit={(comment) => {
+              handleFinishTask(comment);
+              setIsCommentModalOpen(false); // Закрыть модальное окно
+            }}
+            onCancel={() => setIsCommentModalOpen(false)} // Закрыть модальное окно без действия
+          />
+        )}
+      </>
     </>
-  );}
+  );
+}
 
 const MyTasks = () => {
   MyTasks
@@ -479,52 +479,52 @@ const MyTasks = () => {
     const dayName = days[dayOfWeek];
 
     const filtered = tasks
-        .filter((task) => {
-            const taskStartDate = new Date(task.start_date);
-            const taskEndDate = new Date(task.end_date);
+      .filter((task) => {
+        const taskStartDate = new Date(task.start_date);
+        const taskEndDate = new Date(task.end_date);
 
-            if (task.task_type === 'general') {
-                // Общая задача
-                return date >= taskStartDate && date <= taskEndDate;
-            } else if (task.task_type === 'weekly') {
-                // Еженедельная задача
-                return date >= taskStartDate && date <= taskEndDate && task.repeat_days.includes(dayName);
-            }
+        if (task.task_type === 'general') {
+          // Общая задача
+          return date >= taskStartDate && date <= taskEndDate;
+        } else if (task.task_type === 'weekly') {
+          // Еженедельная задача
+          return date >= taskStartDate && date <= taskEndDate && task.repeat_days.includes(dayName);
+        }
 
-            return false;
-        })
-        .map((task) => ({
-            ...task, // Создаем новый объект
-            dateToComplete: new Date(date.getFullYear(), date.getMonth(), date.getDate()), // Добавляем дату выполнения
-        }));
+        return false;
+      })
+      .map((task) => ({
+        ...task, // Создаем новый объект
+        dateToComplete: new Date(date.getFullYear(), date.getMonth(), date.getDate()), // Добавляем дату выполнения
+      }));
 
     console.log(date, filtered);
     return filtered;
-};
-const filterTasksByDate = (startDate, endDate) => {
-  console.log("Start:", startDate, "End:", endDate);
+  };
+  const filterTasksByDate = (startDate, endDate) => {
+    console.log("Start:", startDate, "End:", endDate);
 
-  const allTasks = [];
+    const allTasks = [];
 
-  // Пробегаемся по всем датам от startDate до endDate включительно
-  for (
-    let currentDate = new Date(startDate);
-    clearTime(currentDate) <= clearTime(endDate);
-    currentDate.setDate(currentDate.getDate() + 1)
-  ) {
-    console.log("Processing date:", currentDate);
+    // Пробегаемся по всем датам от startDate до endDate включительно
+    for (
+      let currentDate = new Date(startDate);
+      clearTime(currentDate) <= clearTime(endDate);
+      currentDate.setDate(currentDate.getDate() + 1)
+    ) {
+      console.log("Processing date:", currentDate);
 
-    // Передаём копию currentDate, чтобы избежать изменения объекта
-    const currentDayTasks = filterTasksByDate2(new Date(currentDate));
+      // Передаём копию currentDate, чтобы избежать изменения объекта
+      const currentDayTasks = filterTasksByDate2(new Date(currentDate));
 
-    if (Array.isArray(currentDayTasks) && currentDayTasks.length > 0) {
-      allTasks.push(...currentDayTasks);
+      if (Array.isArray(currentDayTasks) && currentDayTasks.length > 0) {
+        allTasks.push(...currentDayTasks);
+      }
     }
-  }
 
-  console.log("Filtered tasks:", allTasks);
-  return allTasks;
-};
+    console.log("Filtered tasks:", allTasks);
+    return allTasks;
+  };
 
   useEffect(() => {
     // Получаем токен из localStorage
@@ -555,7 +555,7 @@ const filterTasksByDate = (startDate, endDate) => {
       })
       .catch((error) => console.error('Помилка при отриманні завдань:', error));
   }, []);
-  
+
   useEffect(() => {
     const normalizeDate = (date) => {
       return new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -571,25 +571,25 @@ const filterTasksByDate = (startDate, endDate) => {
       }));
       // Текущее время в минутах с полуночи
       const nowInMinutes = now.getHours() * 60 + now.getMinutes();
-      
-  
+
+
       // Проходим по отфильтрованным задачам
       const tasksToUpdate = filteredTasks.map((task) => {
-        
+
         const taskDateToComplete = normalizeDate(new Date(task.dateToComplete));
-        
-  
+
+
         // Проверяем, если `dateToComplete` совпадает с текущей датой
         if (taskDateToComplete.getTime() === date_to_filter.getTime()) {
           // Для времени окончания задачи
           const [endHours, endMinutes] = task.end_time.split(":").map((item) => parseInt(item, 10));
-  
+
           // Переводим время окончания в минуты с полуночи
           const taskEndInMinutes = endHours * 60 + endMinutes;
-  
+
           // Разница во времени в минутах
           const timeDiff = taskEndInMinutes - nowInMinutes;
-  
+
           // Добавляем или обновляем флаг `isUrgent`, если разница менее 30 минут
           return {
             ...task,
@@ -598,14 +598,14 @@ const filterTasksByDate = (startDate, endDate) => {
 
           };
         }
-  
+
         return {
           ...task,
           key: `${task._id}-${task.dateToComplete}`,
           isUrgent: false, // Удаляем срочность для задач с другой датой
         };
       });
-  
+
       const filteredTasks2 = tasksToUpdate.filter(task => !CompTasks.includes(String(task.key)));
 
       const sortedTasks = filteredTasks2.sort((a, b) => {
@@ -615,16 +615,16 @@ const filterTasksByDate = (startDate, endDate) => {
       });
       setFilteredTasks(sortedTasks);
     };
-  
+
     checkTasks(); // Запустить проверку при загрузке
-  
-    
+
+
     const interval = setInterval(checkTasks, 15 * 60 * 1000);
-  
+
     // Очистка интервала при размонтировании компонента
     return () => clearInterval(interval);
   }, [tasks, EndselectedDate, selectedDate]);
-  
+
   const clearTime = (date) => {
     // Устанавливаем время в 00:00:00 для заданной даты
     const clearedDate = new Date(date);
@@ -635,7 +635,7 @@ const filterTasksByDate = (startDate, endDate) => {
   const handleDateChange2 = (e) => {
     const selected = e.target.value; // Получаем строку вида "YYYY-MM-DD"
     const date = new Date(selected); // Преобразуем строку в объект Date
-    if(clearTime(date) < clearTime(selectedDate)){
+    if (clearTime(date) < clearTime(selectedDate)) {
       alert('Дата кінця не може бути меншою за дату початку')
       return;
     }
@@ -645,7 +645,7 @@ const filterTasksByDate = (startDate, endDate) => {
   const handleDateChange = (e) => {
     const selected = e.target.value; // Получаем строку вида "YYYY-MM-DD"
     const date = new Date(selected); // Преобразуем строку в объект Date
-    if(clearTime(date) > clearTime(EndselectedDate)){
+    if (clearTime(date) > clearTime(EndselectedDate)) {
       alert('Дата початку не може бути більшою за дату кінця')
       return;
     }
@@ -694,7 +694,7 @@ const filterTasksByDate = (startDate, endDate) => {
           </thead>
           <tbody>
             {filteredTasks.length > 0 ? (
-              filteredTasks.map((task) => <TaskItem  key = {task.keyTime} task={task} selectedDate={selectedDate} onTaskSelected={setSelectedTask} TaskSelected={selectedTask} complTasks={complTasks} />)
+              filteredTasks.map((task) => <TaskItem key={task.keyTime} task={task} selectedDate={selectedDate} onTaskSelected={setSelectedTask} TaskSelected={selectedTask} complTasks={complTasks} />)
             ) : (
               <tr>
                 <td colSpan="4" style={{ textAlign: "center" }}>Завдань немає</td>

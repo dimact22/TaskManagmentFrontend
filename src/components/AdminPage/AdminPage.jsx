@@ -100,7 +100,7 @@ const AdminPage = () => {
       case "createUser":
         return <CreateUserForm fetchUsers={fetchUsers} fetchUsersToAdd={fetchUsersToAdd} token={token} />;
       case "viewUsers":
-        return <UserTable token={token} users={users} fetchUsers={fetchUsers} fetchUsersForGroup={fetchUsersForGroup} fetchUsersToAdd={fetchUsersToAdd}/>;
+        return <UserTable token={token} users={users} fetchUsers={fetchUsers} fetchUsersForGroup={fetchUsersForGroup} fetchUsersToAdd={fetchUsersToAdd} />;
       case "createGroup":
         return <CreateGroupForm token={token} fetchUsersForGroup={fetchUsersForGroup} usersToAdd={usersToAdd} usersForGroup={usersForGroup} />;
       case "viewGroup":
@@ -116,12 +116,12 @@ const AdminPage = () => {
       <div className="sidebar">
         <button onClick={() => setActiveTab("viewUsers")}
           className={activeTab === "viewUsers" ? "active" : ""}
-          >
+        >
           Користувачі
         </button>
         <button onClick={() => setActiveTab("viewGroup")}
           className={activeTab === "viewGroup" ? "active" : ""}
-          >
+        >
           Групи користувачів
         </button>
       </div>
@@ -131,7 +131,7 @@ const AdminPage = () => {
 };
 
 // eslint-disable-next-line react/prop-types
-const CreateUserForm = ({ fetchUsers,fetchUsersToAdd,fetchUsersForGroup, token, onClose }) => {
+const CreateUserForm = ({ fetchUsers, fetchUsersToAdd, fetchUsersForGroup, token, onClose }) => {
   console.log("CreateUserForm получил props:", { fetchUsers, fetchUsersToAdd, token });
   const [phone, setPhone] = useState("+380");
   const [password, setPassword] = useState("");
@@ -198,7 +198,7 @@ const CreateUserForm = ({ fetchUsers,fetchUsersToAdd,fetchUsersForGroup, token, 
   return (
     <div className="modal-overlay4">
       <div className="modal-content4">
-      <button type="button" style = {{marginTop: '-1vw', width: '5%', marginLeft: '95%'}} onClick={onClose}>X</button>
+        <button type="button" style={{ marginTop: '-1vw', width: '5%', marginLeft: '95%' }} onClick={onClose}>X</button>
         <form className="registration-form" onSubmit={handleCreateUser}>
           <div className="form-group">
             <label htmlFor="name">Ім&apos;я та Прізвище:</label>
@@ -410,8 +410,8 @@ const ViewGroups = ({ token, usersToAdd, usersForGroup }) => {
 
   return (
     <div className="group-table">
-      <img className="createuser-button" onClick={handleCreateGroupButtonClick} src={plus} style={{marginLeft: '92%'}} ></img>
-      <table style={{marginTop: "0vw"}}>
+      <img className="createuser-button" onClick={handleCreateGroupButtonClick} src={plus} style={{ marginLeft: '92%' }} ></img>
+      <table style={{ marginTop: "0vw" }}>
         <thead>
           <tr>
             <th>Назва</th>
@@ -444,13 +444,13 @@ const ViewGroups = ({ token, usersToAdd, usersForGroup }) => {
 
       {selectedGroup && (
         <div className="action-popup">
-          <img onClick={handleCancelSelection} style = {{height: "4vw", width: '4.5vw', marginRight: '13%', cursor:'pointer',marginLeft: '3vw'}} src = {door}></img>
-          <img onClick={handleDeleteGroup} style = {{height: "4vw", width: '4.5vw', marginRight: '12%', cursor:'pointer'}} src = {deleter}></img>
-          <img onClick={handleEditGroup}style = {{height: "4.7vw", width: '4.5vw', marginTop: '0.3vw', cursor:'pointer'}} src = {changer}></img>
+          <img onClick={handleCancelSelection} style={{ height: "4vw", width: '4.5vw', marginRight: '13%', cursor: 'pointer', marginLeft: '3vw' }} src={door}></img>
+          <img onClick={handleDeleteGroup} style={{ height: "4vw", width: '4.5vw', marginRight: '12%', cursor: 'pointer' }} src={deleter}></img>
+          <img onClick={handleEditGroup} style={{ height: "4.7vw", width: '4.5vw', marginTop: '0.3vw', cursor: 'pointer' }} src={changer}></img>
         </div>
       )}
 
-{isModalOpen && (
+      {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
             <h2>Редагування групи</h2>
@@ -486,44 +486,44 @@ const ViewGroups = ({ token, usersToAdd, usersForGroup }) => {
               />
             </div>
             <div className="form-group">
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-  <label style={{ marginRight: '10px', marginTop: '-25px' }}>Статус групи:</label>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <label style={{ marginRight: '10px', marginTop: '-25px' }}>Статус групи:</label>
 
-  <div style={{ marginRight: '20px' }}>
-    <label>
-      <input
-        type="radio"
-        name="groupStatus"
-        value="1"
-        checked={groupStatus === 1}
-        onChange={() => handleStatusChange(1)}
-      />
-      Активна
-    </label>
-  </div>
+                <div style={{ marginRight: '20px' }}>
+                  <label>
+                    <input
+                      type="radio"
+                      name="groupStatus"
+                      value="1"
+                      checked={groupStatus === 1}
+                      onChange={() => handleStatusChange(1)}
+                    />
+                    Активна
+                  </label>
+                </div>
 
-  <div>
-    <label>
-      <input
-        type="radio"
-        name="groupStatus"
-        value="0"
-        checked={groupStatus === 0}
-        onChange={() => handleStatusChange(0)}
-      />
-      Неактивна
-    </label>
-  </div>
-</div>
+                <div>
+                  <label>
+                    <input
+                      type="radio"
+                      name="groupStatus"
+                      value="0"
+                      checked={groupStatus === 0}
+                      onChange={() => handleStatusChange(0)}
+                    />
+                    Неактивна
+                  </label>
+                </div>
+              </div>
             </div>
             <div className="button-container">
-            <button className="cancel-button" onClick={handleCancelEdit} style={{color: 'white'}}>Відміна</button>
-            <button className="save-button" onClick={handleSaveGroup} style={{color: 'white'}}>Зберегти</button>
-          </div></div>
+              <button className="cancel-button" onClick={handleCancelEdit} style={{ color: 'white' }}>Відміна</button>
+              <button className="save-button" onClick={handleSaveGroup} style={{ color: 'white' }}>Зберегти</button>
+            </div></div>
         </div>
       )}
       {isCreategroupModalOpen && (
-        <CreateGroupForm token={token} fetchGroups = {fetchGroups} usersToAdd={usersToAdd} usersForGroup={usersForGroup} onClose={handleCloseGroupUserModal} />
+        <CreateGroupForm token={token} fetchGroups={fetchGroups} usersToAdd={usersToAdd} usersForGroup={usersForGroup} onClose={handleCloseGroupUserModal} />
       )}
     </div>
   );
@@ -608,15 +608,16 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
   const handleSaveUser = async () => {
     setPError('');
     setNError('');
-    if(!validateName(name)){
+    if (!validateName(name)) {
       setNError("Ім'я повинно бути більше 2 символів ")
-      return ;
+      return;
     }
-    if(pass.length>=1){
-    if(!validatePassword(pass)){
-      setPError('Пароль повинен бути від 7 до 20 символів')
-      return ;
-    }}
+    if (pass.length >= 1) {
+      if (!validatePassword(pass)) {
+        setPError('Пароль повинен бути від 7 до 20 символів')
+        return;
+      }
+    }
     try {
       const response = await fetch(`http://localhost:8000/edit_user`, {
         method: "POST",
@@ -660,44 +661,44 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
   };
 
   return (
-    <div className="group-table" style={{marginRight: '2em',marginLeft: '-0.5vw'}}>
+    <div className="group-table" style={{ marginRight: '2em', marginLeft: '-0.5vw' }}>
       {/* Кнопка создания нового пользователя */}
       <img className="createuser-button" onClick={handleCreateUserButtonClick} src={plus}></img>
-    <div className="user-table" style={{marginTop: "0vw"}}>
-      <table>
-        <thead>
-          <tr>
-            <th>Ім&apos;я та Прізвище</th>
-            <th>Телефон</th>
-            <th>Статус</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr
-              key={user._id}
-              onClick={() => handleRowSelect(user)}
-              className={selectedUser?._id === user._id ? "selectedgroup" : ""}
-            >
-              <td>{user.name}</td>
-              <td>{user.phone}</td>
-              <td>
-                {user.status === "add" && "Постановщик задач"}
-                {user.status === "receive" && "Отримувач задач"}
-                {user.status === "add_and_receive" && "Постановщик та отримувач задач"}
-              </td>
+      <div className="user-table" style={{ marginTop: "0vw" }}>
+        <table>
+          <thead>
+            <tr>
+              <th>Ім&apos;я та Прізвище</th>
+              <th>Телефон</th>
+              <th>Статус</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr
+                key={user._id}
+                onClick={() => handleRowSelect(user)}
+                className={selectedUser?._id === user._id ? "selectedgroup" : ""}
+              >
+                <td>{user.name}</td>
+                <td>{user.phone}</td>
+                <td>
+                  {user.status === "add" && "Постановщик задач"}
+                  {user.status === "receive" && "Отримувач задач"}
+                  {user.status === "add_and_receive" && "Постановщик та отримувач задач"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* Popup для кнопок */}
       {selectedUser && (
         <div className="action-popup">
-          <img onClick={handleCancelSelection} style = {{height: "4vw", width: '4.5vw', marginRight: '13%', cursor:'pointer',marginLeft: '3vw'}} src = {door}></img>
-          <img onClick={() => handleDeleteUser(selectedUser._id, selectedUser.phone)} style = {{height: "4vw", width: '4.5vw', marginRight: '12%', cursor:'pointer'}} src = {deleter}></img>
-          <img onClick={() => handleEditUser(selectedUser)} style = {{height: "4.7vw",marginTop: '0.3vw', width: '4.5vw', cursor:'pointer'}} src = {changer}></img>
+          <img onClick={handleCancelSelection} style={{ height: "4vw", width: '4.5vw', marginRight: '13%', cursor: 'pointer', marginLeft: '3vw' }} src={door}></img>
+          <img onClick={() => handleDeleteUser(selectedUser._id, selectedUser.phone)} style={{ height: "4vw", width: '4.5vw', marginRight: '12%', cursor: 'pointer' }} src={deleter}></img>
+          <img onClick={() => handleEditUser(selectedUser)} style={{ height: "4.7vw", marginTop: '0.3vw', width: '4.5vw', cursor: 'pointer' }} src={changer}></img>
         </div>
       )}
 
@@ -712,7 +713,7 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
                 type="text"
                 id="name"
                 value={name}
-                style = {{marginTop: '0.5em'}}
+                style={{ marginTop: '0.5em' }}
                 onChange={(e) => setName(e.target.value)}
               />
               {NError && <p style={{ color: "red" }}>{NError}</p>}
@@ -722,7 +723,7 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
               <select
                 id="status"
                 value={status}
-                style = {{marginTop: '0.5em'}}
+                style={{ marginTop: '0.5em' }}
                 onChange={(e) => setStatus(e.target.value)}
               >
                 <option value="add">Постановщик задач</option>
@@ -736,16 +737,16 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
                 type="text"
                 id="name"
                 value={pass}
-                style = {{marginTop: '0.5em'}}
+                style={{ marginTop: '0.5em' }}
                 onChange={(e) => setPass(e.target.value)}
               />
               {PError && <p style={{ color: "red" }}>{PError}</p>}
             </div>
             <div className="button-container">
-              <button className="cancel-button" style={{color: 'white'}} onClick={handleCancelEdit}>
+              <button className="cancel-button" style={{ color: 'white' }} onClick={handleCancelEdit}>
                 Відміна
               </button>
-              <button className="save-button" style={{color: 'white'}} onClick={handleSaveUser}>
+              <button className="save-button" style={{ color: 'white' }} onClick={handleSaveUser}>
                 Зберегти
               </button>
             </div>
@@ -753,11 +754,11 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
         </div>
       )}
       {isCreateUserModalOpen && (
-        <CreateUserForm 
+        <CreateUserForm
           fetchUsers={fetchUsers}
           token={token}
-          fetchUsersForGroup = {fetchUsersForGroup}
-          fetchUsersToAdd = {fetchUsersToAdd}
+          fetchUsersForGroup={fetchUsersForGroup}
+          fetchUsersToAdd={fetchUsersToAdd}
           onClose={handleCloseCreateUserModal} // функция для закрытия формы
         />
       )}
@@ -766,7 +767,7 @@ const UserTable = ({ users, token, fetchUsers, fetchUsersToAdd, fetchUsersForGro
 };
 
 // eslint-disable-next-line react/prop-types
-const CreateGroupForm = ({ usersToAdd, usersForGroup,fetchGroups, token, onClose }) => {
+const CreateGroupForm = ({ usersToAdd, usersForGroup, fetchGroups, token, onClose }) => {
   CreateGroupForm.propTypes = {
     users: PropTypes.arrayOf(
       PropTypes.shape({
@@ -859,54 +860,54 @@ const CreateGroupForm = ({ usersToAdd, usersForGroup,fetchGroups, token, onClose
   return (
     <div className="modal-overlay4">
       <div className="modal-content4">
-      <button type="button" style = {{marginTop: '-1vw', width: '5%', marginLeft: '95%'}} onClick={onClose}>X</button>
-    <form className="create-group-form-container" onSubmit={handleCreateGroup}>
-      <div className="form-group-item">
-        <label htmlFor="groupName" className="label-group-name">
-          Назва:
-        </label>
-        <input
-          id="groupName"
-          type="text"
-          style = {{marginTop: "0.5em"}}
-          value={groupName}
-          onChange={handleGroupNameChange}
-          className="input-group-name"
-          placeholder="Введіть назву групи"
-        />
-      </div>
+        <button type="button" style={{ marginTop: '-1vw', width: '5%', marginLeft: '95%' }} onClick={onClose}>X</button>
+        <form className="create-group-form-container" onSubmit={handleCreateGroup}>
+          <div className="form-group-item">
+            <label htmlFor="groupName" className="label-group-name">
+              Назва:
+            </label>
+            <input
+              id="groupName"
+              type="text"
+              style={{ marginTop: "0.5em" }}
+              value={groupName}
+              onChange={handleGroupNameChange}
+              className="input-group-name"
+              placeholder="Введіть назву групи"
+            />
+          </div>
 
-      <div className="form-group-item">
-        <label htmlFor="manager" className="label-manager">
-        Лідер групи:
-        </label>
-        <Select
-  id="manager"
-  options={userOptions2}
-  styles={customStyles}
-  onChange={handleManagerSelect}
-  placeholder="Оберіть керівника"
-/>
-      </div>
+          <div className="form-group-item">
+            <label htmlFor="manager" className="label-manager">
+              Лідер групи:
+            </label>
+            <Select
+              id="manager"
+              options={userOptions2}
+              styles={customStyles}
+              onChange={handleManagerSelect}
+              placeholder="Оберіть керівника"
+            />
+          </div>
 
-      <div className="form-group-item">
-        <label htmlFor="users" className="label-users">
-        Користувачі групи:
-        </label>
-        <Select
-          id="users"
-          options={usersForGroup2}
-          onChange={handleUserSelect}
-          styles={customStyles}
-          isMulti
-          placeholder="Введіть телефон або ім'я для пошуку"
-        />
-      </div>
+          <div className="form-group-item">
+            <label htmlFor="users" className="label-users">
+              Користувачі групи:
+            </label>
+            <Select
+              id="users"
+              options={usersForGroup2}
+              onChange={handleUserSelect}
+              styles={customStyles}
+              isMulti
+              placeholder="Введіть телефон або ім'я для пошуку"
+            />
+          </div>
 
-      <button type="submit" className="create-button">
-        Створити
-      </button>
-    </form></div></div>
+          <button type="submit" className="create-button">
+            Створити
+          </button>
+        </form></div></div>
   );
 };
 
